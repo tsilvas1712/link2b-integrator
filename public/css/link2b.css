@@ -1,0 +1,26 @@
+[class*=sidebar-dark-]{
+    background-color: #002855;
+}
+
+.sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active, .sidebar-light-primary .nav-sidebar>.nav-item>.nav-link.active {
+    background-color: #0082BA;
+    color: #002855;
+}
+
+.login-page, .register-page {
+    -ms-flex-align: center;
+    align-items: center;
+    background-color: #002855;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    height: 100vh;
+    -ms-flex-pack: center;
+    justify-content: center;
+
+}
+
+.login-logo a, .register-logo a {
+    color: #ffffff;
+}
