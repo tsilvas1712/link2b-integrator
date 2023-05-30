@@ -314,6 +314,11 @@ return [
             'url'  => '/clientes',
             'icon'        => 'fas fa-fw fa-people-arrows',
         ],
+        [
+            'text' => 'Datasys',
+            'url'  => '/datasys',
+            'icon'        => 'fas fa-fw fa-people-arrows',
+        ],
 
     ],
 

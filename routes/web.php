@@ -13,10 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth')->group(function (){
-    Route::get('/',[\App\Http\Controllers\Integrador\MainController::class,'index']);
+Route::middleware('auth')->group(function () {
+    Route::get('/', [\App\Http\Controllers\Integrador\MainController::class,'index']);
 
-    Route::resource('/clientes',\App\Http\Controllers\Integrador\CustomerController::class);
+    Route::resource('/clientes', \App\Http\Controllers\Integrador\CustomerController::class);
+
+    Route::prefix('/datasys')->group(function () {
+        Route::get('', [\App\Http\Controllers\Integrador\DatasysController::class,'index']);
+    });
 });
 
 Auth::routes();

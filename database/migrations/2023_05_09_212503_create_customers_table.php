@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -16,9 +15,9 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('email')->nullable();
             $table->string('endpoint_customer');
-            $table->text('token_customer',999);
+            $table->text('token_customer', 999)->nullable();
             $table->string('endpoint_link2b');
-            $table->text('token_link2b',999);
+            $table->text('token_link2b', 999)->nullable();
             $table->boolean('active')->default(true);
             $table->timestamps();
         });
