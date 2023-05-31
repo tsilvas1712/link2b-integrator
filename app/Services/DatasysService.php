@@ -8,7 +8,7 @@ use GuzzleHttp\Psr7\Request;
 class DatasysService
 {
 
-    public function getSales($datasysUrl, $datasysToken)
+    public function getSales($datasysUrl, $datasysToken, $dataFiltro)
     {
         $curl = curl_init();
 
@@ -49,7 +49,7 @@ class DatasysService
 
         $return = [];
 
-        $stringVendas = 'APARELHO;';
+        $stringVendas = $dataFiltro;
 
         $tipoVendas = explode(';', $stringVendas);
 

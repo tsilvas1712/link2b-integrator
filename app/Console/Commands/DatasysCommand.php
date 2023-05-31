@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Customer;
 use App\Services\DatasysService;
 use Illuminate\Console\Command;
 
@@ -33,10 +34,16 @@ class DatasysCommand extends Command
 
     protected function showSales()
     {
+        $customers = Customer::where('active', true)->get();
         $sales = new DatasysService();
-        $datasysToken = 'RFRTMzlfVElNX0lNQUdFTV9TUA==';
-        $datasysUrl = 'https://wsintegracaoclientes.datasys.online/clientes/ConsultasDatasys.asmx';
-
-        return count($sales->getSales($datasysUrl, $datasysToken));
+        
+        foreach($customers as $customer) {
+            $datasysToken = $customer->token_customer;
+            $datasysUrl = $customer->endpoint_customer;
+            $datasysFiltro = $customer->tipo_vendas;
+            $datasys = $sales->getSales($datasysUrl, $datasysToken, $datasysFiltro);
+        }
+        
+        return count($datasys);
     }
 }

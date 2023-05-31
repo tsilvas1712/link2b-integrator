@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Integrador;
 
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
 use App\Services\DatasysService;
 
 class DatasysController extends Controller
@@ -17,9 +18,15 @@ class DatasysController extends Controller
 
     public function index()
     {
-        $datasysToken = 'RFRTMzlfVElNX0lNQUdFTV9TUA==';
-        $datasysUrl = 'https://wsintegracaoclientes.datasys.online/clientes/ConsultasDatasys.asmx';
-        $datasys = $this->datasysService->getSales($datasysUrl, $datasysToken);
+        $customers = Customer::where('active', true)->get();
+        
+        foreach($customers as $customer) {
+            $datasysToken = $customer->token_customer;
+            $datasysUrl = $customer->endpoint_customer;
+            $datasysFiltro = $customer->tipo_vendas;
+            $datasys = $this->datasysService->getSales($datasysUrl, $datasysToken, $datasysFiltro);
+        }
+        
 
         
 

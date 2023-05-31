@@ -24,6 +24,9 @@
                     <strong>E-mail:</strong> {{ $customer->email }}
                 </li>
                 <li>
+                    <strong>Filtros:</strong> {{ $customer->tipo_vendas }}
+                </li>
+                <li>
                     <strong>Endpoint Link2B:</strong> {{ $customer->endpoint_link2b }}
                 </li>
                 <li>

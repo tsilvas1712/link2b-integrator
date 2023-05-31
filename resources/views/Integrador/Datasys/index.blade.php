@@ -16,7 +16,6 @@
                 <thead>
                     <tr>
                         <th>id</th>
-                        <th>GSM</th>
                         <th>Area</th>
                         <th>Filial</th>
                         <th>Data Pedido</th>
@@ -32,13 +31,12 @@
                     @foreach ($datasys as $row)
                         <tr>
                             <td>{{ $row['id'] }}</td>
-                            <td></td>
                             <td>{{ $row['Area'] }}</td>
                             <td>{{ $row['Filial'] }}</td>
-                            <td>{{ $row['Data_x0020_pedido'] }}</td>
+                            <td>{{ date('d/m/Y H:i:s', strtotime($row['Data_x0020_pedido'])) }}</td>
                             <td>{{ $row['Grupo_x0020_Estoque'] }}</td>
                             <td>{{ $row['Qtde'] }}</td>
-                            <td>{{ $row['Valor_x0020_Tabela'] }}</td>
+                            <td>R$ {{ number_format($row['Valor_x0020_Tabela'], 2, ',', '.') }}</td>
                             <td>{{ $row['Nome_x0020_Vendedor'] }}</td>
                             <td>{{ $row['Nome_x0020_Cliente'] }}</td>
 
