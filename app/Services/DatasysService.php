@@ -4,12 +4,15 @@ namespace App\Services;
 use SimpleXMLElement;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
+use Illuminate\Support\Carbon;
 
 class DatasysService
 {
 
     public function getSales($datasysUrl, $datasysToken, $dataFiltro)
     {
+        $dateFilter = Carbon::now()->subDays(1)->format('Y-m-d');
+      
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
@@ -26,8 +29,8 @@ class DatasysService
               <soap:Body>
                 <BaixarVendas xmlns="http://tempuri.org/">
                   <Token>'.$datasysToken.'</Token>
-                  <DataInicial>2023-04-01</DataInicial>
-                  <DataFinal>2023-04-01</DataFinal>
+                  <DataInicial>'.$dateFilter.'</DataInicial>
+                  <DataFinal>'.$dateFilter.'</DataFinal>
                 </BaixarVendas>
               </soap:Body>
             </soap:Envelope>',
@@ -51,17 +54,26 @@ class DatasysService
 
         $stringVendas = $dataFiltro;
 
-        $tipoVendas = explode(';', $stringVendas);
+        if($stringVendas === null){
+          $tipoVendas = false;  
+        }else{
+          $tipoVendas = explode(';', $stringVendas);
+        }
+        
 
         foreach($responseArray as $row) {
             if($row['Tipo_x0020_Pedido']== 'Venda') {
 
+              if($tipoVendas){                
                 foreach($tipoVendas as $tipo) {
-
-                    if($row['Grupo_x0020_Estoque'] == $tipo) {
-                        array_push($return, $row);
-                    }
+                  if($row['Modalidade_x0020_Venda'] == $tipo) {
+                      array_push($return, $row);
+                  }
                 }
+              }else{
+                array_push($return, $row);
+              }
+                
                 
             }
         }

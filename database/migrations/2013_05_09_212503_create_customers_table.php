@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('name')->unique();
             $table->string('email')->nullable();
+            $table->text('tipo_vendas')->nullable();
             $table->string('endpoint_customer');
             $table->text('token_customer', 999)->nullable();
             $table->string('endpoint_link2b');
