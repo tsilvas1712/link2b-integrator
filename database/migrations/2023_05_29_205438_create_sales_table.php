@@ -12,6 +12,7 @@ return new class extends Migration {
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('campaign_id')->constrained('campaigns');
             $table->bigInteger('id_venda');
             $table->string('gsm')->nullable();
             $table->string('contrato')->nullable();
@@ -20,7 +21,7 @@ return new class extends Migration {
             $table->string('tipo_pedido')->nullable();
             $table->string('cod_produto_datasys')->nullable();
             $table->string('descr_prod')->nullable();
-            $table->string('grupo_estoque')->nullable();
+            $table->string('modalidade_venda')->nullable();
             $table->double('valor_total', 10, 2);
             $table->string('nome_vendedor')->nullable();
             $table->string('nome_cliente')->nullable();

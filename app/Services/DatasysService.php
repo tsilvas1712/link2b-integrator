@@ -1,80 +1,85 @@
 <?php
 namespace App\Services;
 
-use SimpleXMLElement;
-use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Request;
+use App\Repository\SaleRepository;
 use Illuminate\Support\Carbon;
+use SimpleXMLElement;
 
 class DatasysService
 {
+    protected $repository;
 
-    public function getSales($datasysUrl, $datasysToken, $dataFiltro)
+    public function __construct(SaleRepository $saleRepository)
+    {
+        $this->repository = $saleRepository;
+    }
+
+    public function getSales($datasysUrl, $datasysToken, $dataFiltro, $datasysCampaign)
     {
         $dateFilter = Carbon::now()->subDays(1)->format('Y-m-d');
-      
+
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-          CURLOPT_URL => $datasysUrl,
-          CURLOPT_RETURNTRANSFER => true,
-          CURLOPT_ENCODING => '',
-          CURLOPT_MAXREDIRS => 10,
-          CURLOPT_TIMEOUT => 0,
-          CURLOPT_FOLLOWLOCATION => true,
-          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-          CURLOPT_CUSTOMREQUEST => 'POST',
-          CURLOPT_POSTFIELDS =>'<?xml version="1.0" encoding="utf-8"?>
+            CURLOPT_URL => $datasysUrl,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => '<?xml version="1.0" encoding="utf-8"?>
             <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
               <soap:Body>
                 <BaixarVendas xmlns="http://tempuri.org/">
-                  <Token>'.$datasysToken.'</Token>
-                  <DataInicial>'.$dateFilter.'</DataInicial>
-                  <DataFinal>'.$dateFilter.'</DataFinal>
+                  <Token>' . $datasysToken . '</Token>
+                  <DataInicial>' . $dateFilter . '</DataInicial>
+                  <DataFinal>' . $dateFilter . '</DataFinal>
                 </BaixarVendas>
               </soap:Body>
             </soap:Envelope>',
-          CURLOPT_HTTPHEADER => array(
-            'Content-Type: text/xml'
-          ),
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: text/xml',
+            ),
         ));
 
         $response = curl_exec($curl);
-       
+
         $res = preg_replace("/(<\/?)(\w+):([^>]*>)/", "$1$2$3", $response);
 
         curl_close($curl);
         $xml = new SimpleXMLElement($res);
         $body = $xml->xpath('//soapBody')[0];
-        $array = json_decode(json_encode((array)$body), true);
-        
+        $array = json_decode(json_encode((array) $body), true);
+
         $responseArray = $array['BaixarVendasResponse']['BaixarVendasResult']['NewDataSet']['Table'];
 
         $return = [];
 
         $stringVendas = $dataFiltro;
 
-        if($stringVendas === null){
-          $tipoVendas = false;  
-        }else{
-          $tipoVendas = explode(';', $stringVendas);
+        if ($stringVendas === null) {
+            $tipoVendas = false;
+        } else {
+            $tipoVendas = explode(';', $stringVendas);
         }
-        
 
-        foreach($responseArray as $row) {
-            if($row['Tipo_x0020_Pedido']== 'Venda') {
+        foreach ($responseArray as $row) {
+            if ($row['Tipo_x0020_Pedido'] == 'Venda') {
+                $row['campaign_id'] = $datasysCampaign;
 
-              if($tipoVendas){                
-                foreach($tipoVendas as $tipo) {
-                  if($row['Modalidade_x0020_Venda'] == $tipo) {
-                      array_push($return, $row);
-                  }
+                if ($tipoVendas) {
+                    foreach ($tipoVendas as $tipo) {
+                        if ($row['Modalidade_x0020_Venda'] == $tipo) {
+                            $this->repository->save($row);
+                        }
+                    }
+                } else {
+                    $this->repository->save($row);
+
                 }
-              }else{
-                array_push($return, $row);
-              }
-                
-                
+
             }
         }
 

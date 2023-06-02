@@ -4,17 +4,18 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('customers', function (Blueprint $table) {
+        Schema::create('campaigns', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->string('email')->nullable();
-            $table->text('tipo_vendas')->nullable();
+            $table->foreignId('tenant_id')->constrained('tenants');
+            $table->string('name')->unique();            
+            $table->text('sales_modalities')->nullable();
             $table->string('endpoint_customer');
             $table->text('token_customer', 999)->nullable();
             $table->string('endpoint_link2b');
@@ -29,6 +30,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('customers');
+        Schema::dropIfExists('campaigns');
     }
 };

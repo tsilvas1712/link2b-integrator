@@ -16,11 +16,9 @@
                 <thead>
                     <tr>
                         <th>id</th>
-                        <th>Area</th>
                         <th>Filial</th>
                         <th>Data Pedido</th>
                         <th>Tipo Pedido</th>
-                        <th>Qtde</th>
                         <th>Valor</th>
                         <th>Vendedor</th>
                         <th>Cliente</th>
@@ -28,17 +26,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($datasys as $row)
+                    @foreach ($sales as $sale)
                         <tr>
-                            <td>{{ $row['id'] }}</td>
-                            <td>{{ $row['Area'] }}</td>
-                            <td>{{ $row['Filial'] }}</td>
-                            <td>{{ date('d/m/Y H:i:s', strtotime($row['Data_x0020_pedido'])) }}</td>
-                            <td>{{ $row['Modalidade_x0020_Venda'] }}</td>
-                            <td>{{ $row['Qtde'] }}</td>
-                            <td>R$ {{ number_format($row['Valor_x0020_Tabela'], 2, ',', '.') }}</td>
-                            <td>{{ $row['Nome_x0020_Vendedor'] }}</td>
-                            <td>{{ $row['Nome_x0020_Cliente'] }}</td>
+                            <td>{{ $sale->id_venda }}</td>
+                            <td>{{ $sale->filial }}</td>
+                            <td>{{ date('d/m/Y H:i:s', strtotime($sale->data_pedido)) }}</td>
+                            <td>{{ $sale->modalidade_venda }}</td>
+                            <td>R$ {{ number_format($sale->valor_total, 2, ',', '.') }}</td>
+                            <td>{{ $sale->nome_vendedor }}</td>
+                            <td>{{ $sale->nome_cliente }}</td>
 
 
                             <td>
@@ -52,7 +48,7 @@
             </table>
         </div>
         <div class="card-footer">
-
+            {{ $sales->links() }}
 
         </div>
     @stop

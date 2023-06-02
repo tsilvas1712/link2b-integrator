@@ -9,8 +9,10 @@ class Sale extends Model
 {
     use HasFactory;
 
-    protected $fillable =['id_venda','gsm','contrato','filial','data_pedido',
+    protected $table = 'sales';
+
+    protected $fillable =['campaign_id','id_venda','gsm','filial','data_pedido',
                             'tipo_pedido','cod_produto_datasys','descr_prod',
-                            'grupo_estoque','valor_total','nome_vendedor',
+                            'modalidade_venda','valor_total','nome_vendedor',
                             'nome_cliente'];
 }

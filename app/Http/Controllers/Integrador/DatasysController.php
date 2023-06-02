@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Integrador;
 
 use App\Http\Controllers\Controller;
+use App\Models\Campaign;
 use App\Models\Customer;
 use App\Services\DatasysService;
 
@@ -18,14 +19,16 @@ class DatasysController extends Controller
 
     public function index()
     {
-        $customers = Customer::where('active', true)->get();
+        $campaigns = Campaign::where('active', true)->get();
         
-        foreach($customers as $customer) {
-            $datasysToken = $customer->token_customer;
-            $datasysUrl = $customer->endpoint_customer;
-            $datasysFiltro = $customer->tipo_vendas;
-            $datasys = $this->datasysService->getSales($datasysUrl, $datasysToken, $datasysFiltro);
+        foreach($campaigns as $campaign) {
+            $datasysToken = $campaign->token_customer;
+            $datasysUrl = $campaign->endpoint_customer;
+            $datasysCampaign = $campaign->id;
+            $datasysFiltro = $campaign->sales_modalities;
+            $datasys = $this->datasysService->getSales($datasysUrl, $datasysToken, $datasysFiltro,$datasysCampaign);
         }
+
         
 
         
