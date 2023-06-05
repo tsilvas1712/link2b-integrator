@@ -3,7 +3,7 @@
 @section('title_postfix', '| Clientes')
 
 @section('content_header')
-	<h1>Clientes <a href="{{route('clientes.create')}}" class="btn btn-success"> <i class="fa fa-plus"></i> Cliente</a>
+	<h1>Clientes <a href="{{ route('clientes.create')}}" class="btn btn-success"> <i class="fa fa-plus"></i> Cliente</a>
 	</h1>
 @stop
 

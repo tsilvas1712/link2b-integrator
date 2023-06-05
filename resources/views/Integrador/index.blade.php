@@ -8,60 +8,67 @@
 
 @section('content')
 	<div class="row">
-		<div class="col-12 col-sm-6 col-md-3">
-			<div class="info-box">
-				<span class="info-box-icon bg-primary elevation-1"><i class="fas fa-people-arrows"></i></span>
-				<div class="info-box-content">
-					<span class="info-box-text">Clientes</span>
-					<span class="info-box-number">10</span>
+		<div class="col-lg-3 col-6">
+
+			<div class="small-box bg-info">
+				<div class="inner">
+					<h3>{{$panels['tenants']}}</h3>
+					<p>Empresas</p>
 				</div>
-
+				<div class="icon">
+					<i class="ion ion-cube"></i>
+				</div>
+				<a href="{{route('tenants.index')}}" class="small-box-footer">Mais Informações <i class="fas fa-arrow-circle-right"></i></a>
 			</div>
-
 		</div>
 
-		<div class="col-12 col-sm-6 col-md-3">
-			<div class="info-box mb-3">
-				<span class="info-box-icon bg-success elevation-1"><i class="fas fa-tags"></i></span>
-				<div class="info-box-content">
-					<span class="info-box-text">Mensagens</span>
-					<span class="info-box-number">41,410</span>
+		<div class="col-lg-3 col-6">
+
+			<div class="small-box bg-success">
+				<div class="inner">
+					<h3>{{$panels['campaigns']}}</h3>
+					<p>Campanhas</p>
 				</div>
-
+				<div class="icon">
+					<i class="ion ion-paper-airplane"></i>
+				</div>
+				<a href="{{route('campanhas.index')}}" class="small-box-footer">Mais Informações <i class="fas fa-arrow-circle-right"></i></a>
 			</div>
-
 		</div>
 
+		<div class="col-lg-3 col-6">
 
-		<div class="clearfix hidden-md-up"></div>
-		<div class="col-12 col-sm-6 col-md-3">
-			<div class="info-box mb-3">
-				<span class="info-box-icon bg-danger elevation-1"><i class="fas fa-cogs"></i></span>
-				<div class="info-box-content">
-					<span class="info-box-text">Erros</span>
-					<span class="info-box-number">760</span>
+			<div class="small-box bg-blue">
+				<div class="inner">
+					<h3>{{$panels['users']}}</h3>
+					<p>Usuários Registrados</p>
 				</div>
-
+				<div class="icon">
+					<i class="ion ion-person-add"></i>
+				</div>
+				<a href="#" class="small-box-footer">Mais Informações <i class="fas fa-arrow-circle-right"></i></a>
 			</div>
-
 		</div>
 
-		<div class="col-12 col-sm-6 col-md-3">
-			<div class="info-box mb-3">
-				<span class="info-box-icon bg-indigo elevation-1"><i class="fas fa-users"></i></span>
-				<div class="info-box-content">
-					<span class="info-box-text">Usuários</span>
-					<span class="info-box-number">2,000</span>
+		<div class="col-lg-3 col-6">
+
+			<div class="small-box bg-indigo">
+				<div class="inner">
+					<h3>{{$panels['sales']}}</h3>
+					<p>Total de Mensagens</p>
 				</div>
-
+				<div class="icon">
+					<i class="ion ion-email-unread"></i>
+				</div>
+				<a href="{{route('mensagens.index')}}" class="small-box-footer">Mais Informações <i class="fas fa-arrow-circle-right"></i></a>
 			</div>
-
 		</div>
 
 	</div>
 @stop
 
 @section('css')
+	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 	<link rel="stylesheet" href="/css/admin_custom.css">
 @stop
 

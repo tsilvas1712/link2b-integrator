@@ -11,14 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tenants', function (Blueprint $table) {
+        Schema::create('permission_profile', function (Blueprint $table) {
             $table->id();
-            $table->string('tenant_name');
-            $table->string('cpf_cnpj')->unique();
-            $table->string('phone');
-            $table->string('contact');
-            $table->boolean('active')->default(true);
-            $table->timestamps();
+            $table->foreignId('permission_id')
+                ->constrained('permissions')
+                ->onDelete('cascade');
+
+            $table->foreignId('profile_id')
+                ->constrained('profiles')
+                ->onDelete('cascade');
+
         });
     }
 
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tenants');
+        Schema::dropIfExists('permission_profile');
     }
 };

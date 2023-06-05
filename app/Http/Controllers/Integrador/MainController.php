@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Integrador;
 
 use App\Http\Controllers\Controller;
+use App\Models\Campaign;
+use App\Models\Sale;
+use App\Models\Tenant;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class MainController extends Controller
@@ -12,7 +16,14 @@ class MainController extends Controller
      */
     public function index()
     {
-        return view('Integrador.index');
+        $panels = [];
+        $panels['tenants'] = Tenant::all()->count();
+        $panels['campaigns'] = Campaign::all()->count();
+        $panels['users'] = User::all()->count();
+        $panels['sales'] = Sale::all()->count();
+
+
+        return view('Integrador.index',compact('panels'));
     }
 
     /**

@@ -3,7 +3,7 @@
 @section('title_postfix', '| Clientes')
 
 @section('content_header')
-    <h1>Clientes <a href="#" class="btn btn-success"> <i class="fa fa-plus"></i> Cliente</a>
+    <h1>Empresas <a href="{{ route('tenants.create') }}" class="btn btn-success"> <i class="fa fa-plus"></i> Adicionar</a>
     </h1>
 @stop
 
@@ -38,9 +38,10 @@
                             @endif
 
                             <td>
-                                <a class="btn btn-warning" href="{{ route('clientes.show', $tenant->id) }}"
+                                <a class="btn btn-warning" href="{{ route('tenants.show', $tenant->id) }}"
                                     title="Ver Registro"><i class="fa fa-eye"></i></a>
-                                <a class="btn btn-primary" title="Editar Registro"><i class="fa fa-cogs"></i></a>
+                                <a class="btn btn-primary" href="{{route('tenants.edit',$tenant->id)}}"
+                                   title="Editar Registro"><i class="fa fa-cogs"></i></a>
                                 <a class="btn btn-danger" title="Deletar Registro"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>

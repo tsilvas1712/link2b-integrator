@@ -310,9 +310,19 @@ return [
             'icon' => 'fas fa-fw fa-home',
         ],
         [
-            'text' => 'Clientes',
-            'url' => '/clientes',
-            'icon' => 'fas fa-fw fa-people-arrows',
+            'text' => 'Empresas',
+            'url' => '/tenants',
+            'icon' => 'fas fa-fw fa-building',
+        ],
+        [
+            'text' => 'Perfis',
+            'url' => '/profiles',
+            'icon' => 'fas fa-fw fa-address-book',
+        ],
+        [
+            'text' => 'Permissões',
+            'url' => '/permissions',
+            'icon' => 'fas fa-fw fa-id-card',
         ],
         [
             'text' => 'Campanhas',

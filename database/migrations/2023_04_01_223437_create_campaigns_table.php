@@ -16,9 +16,9 @@ return new class extends Migration
             $table->foreignId('tenant_id')->constrained('tenants');
             $table->string('name')->unique();            
             $table->text('sales_modalities')->nullable();
-            $table->string('endpoint_customer');
+            $table->string('endpoint_customer')->nullable();
             $table->text('token_customer', 999)->nullable();
-            $table->string('endpoint_link2b');
+            $table->string('endpoint_link2b')->nullable();
             $table->text('token_link2b', 999)->nullable();
             $table->boolean('active')->default(true);
             $table->timestamps();

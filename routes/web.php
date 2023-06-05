@@ -1,6 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Integrador\{
+    MainController,
+    TenantController,
+    CampaignController,
+    SaleController,
+    ProfileController,
+    PermissionController,
+    DatasysController,
+    Admin\ACL\PermissionProfileController,
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -14,14 +24,27 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::middleware('auth')->group(function () {
-    Route::get('/', [\App\Http\Controllers\Integrador\MainController::class, 'index']);
+    Route::get('/', [MainController::class, 'index']);
 
-    Route::resource('/clientes', \App\Http\Controllers\Integrador\TenantController::class);
-    Route::resource('/campanhas', \App\Http\Controllers\Integrador\CampaignController::class);
-    Route::resource('/mensagens', \App\Http\Controllers\Integrador\SaleController::class);
+    Route::resource('/tenants', TenantController::class);
+    Route::resource('/campanhas', CampaignController::class);
+    Route::resource('/mensagens', SaleController::class);
+
+
+    Route::resource('/profiles', ProfileController::class);
+
+
+    Route::post('profiles/{id}/permissions',[PermissionProfileController::class,'attachPermissionsProfile'])
+        ->name('profiles.permissions.attach');
+    Route::get('profiles/{id}/permissions/create',[PermissionProfileController::class,'permissionsAvailable'])
+        ->name('profiles.permissions.available');
+    Route::get('profiles/{id}/permissions',[PermissionProfileController::class,'permissions'])
+    ->name('profiles.permissions');
+
+    Route::resource('/permissions', PermissionController::class);
 
     Route::prefix('/datasys')->group(function () {
-        Route::get('', [\App\Http\Controllers\Integrador\DatasysController::class, 'index']);
+        Route::get('', [DatasysController::class, 'index']);
     });
 });
 
