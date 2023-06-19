@@ -20,8 +20,9 @@
                         <th>Data Pedido</th>
                         <th>Tipo Pedido</th>
                         <th>Valor</th>
-                        <th>Vendedor</th>
                         <th>Cliente</th>
+                        <th>Vendedor</th>
+                        <th>Status</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -33,15 +34,25 @@
                             <td>{{ date('d/m/Y H:i:s', strtotime($sale->data_pedido)) }}</td>
                             <td>{{ $sale->modalidade_venda }}</td>
                             <td>R$ {{ number_format($sale->valor_total, 2, ',', '.') }}</td>
-                            <td>{{ $sale->nome_vendedor }}</td>
                             <td>{{ $sale->nome_cliente }}</td>
+                            <td>{{ $sale->nome_vendedor }}</td>
+                            @if ($sale->status)
+                                <td>
+                                    <span class="badge badge-success">
+                                       Enviado
+                                    </span>
+                                </td>
+                            @else
+                                <td>
+                                    <span class="badge badge-danger">
+                                       Não enviado
+                                    </span>
+                                </td>
+                            @endif
 
 
-                            <td>
-                                <a class="btn btn-warning" href="#" title="Ver Registro"><i class="fa fa-eye"></i></a>
-                                <a class="btn btn-primary" title="Editar Registro"><i class="fa fa-cogs"></i></a>
-                                <a class="btn btn-danger" title="Deletar Registro"><i class="fa fa-trash"></i></a>
-                            </td>
+
+
                         </tr>
                     @endforeach
                 </tbody>

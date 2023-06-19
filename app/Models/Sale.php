@@ -14,5 +14,11 @@ class Sale extends Model
     protected $fillable =['campaign_id','id_venda','gsm','filial','data_pedido',
                             'tipo_pedido','cod_produto_datasys','descr_prod',
                             'modalidade_venda','valor_total','nome_vendedor',
-                            'nome_cliente'];
+                            'nome_cliente','status'];
+
+
+    public function campaign()
+    {
+        return $this->hasOne(Campaign::class);
+    }
 }

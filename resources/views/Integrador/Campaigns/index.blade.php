@@ -26,21 +26,25 @@
                     @foreach ($campaigns as $campaign)
                         <tr>
                             <td>{{ $campaign->name }}</td>
-                            <td>{{ $campaign->email }}</td>
+                            <td></td>
                             @if ($campaign->active)
-                                <td class="bg-success text-white text-center">
-                                    <b>Ativo</b>
+                                <td>
+                                    <span class="badge badge-success">
+                                       Ativo
+                                    </span>
                                 </td>
                             @else
-                                <td class="bg-danger text-white text-center">
-                                    <b>Parado</b>
+                                <td>
+                                    <span class="badge badge-danger">
+                                       Bloquedo
+                                    </span>
                                 </td>
                             @endif
 
                             <td>
-                                <a class="btn btn-warning" href="{{ route('clientes.show', $campaign->id) }}"
+                                <a class="btn btn-warning" href="{{ route('campanhas.show', $campaign->id) }}"
                                     title="Ver Registro"><i class="fa fa-eye"></i></a>
-                                <a class="btn btn-primary" title="Editar Registro"><i class="fa fa-cogs"></i></a>
+                                <a class="btn btn-primary" href="{{route('campanhas.edit',$campaign->id)}}" title="Editar Registro"><i class="fa fa-cogs"></i></a>
                                 <a class="btn btn-danger" title="Deletar Registro"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>

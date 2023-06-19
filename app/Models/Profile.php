@@ -18,6 +18,11 @@ class Profile extends Model
         return $this->belongsToMany(Permission::class);
     }
 
+    public function tenants()
+    {
+        return $this->belongsToMany(Tenant::class);
+    }
+
     public function permissionsAvailable()
     {
         $permissions = Permission::whereNotIn('id',function ($query){

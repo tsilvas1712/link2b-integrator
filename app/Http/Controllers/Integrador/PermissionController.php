@@ -13,6 +13,7 @@ class PermissionController extends Controller
     public function __construct(Permission $permission)
     {
         $this->repository = $permission;
+        $this->middleware(['can:Permissões']);
     }
     /**
      * Display a listing of the resource.
@@ -30,6 +31,7 @@ class PermissionController extends Controller
     public function create()
     {
         return view('Integrador.Permission.create');
+
     }
 
     /**

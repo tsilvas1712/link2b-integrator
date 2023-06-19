@@ -1,6 +1,7 @@
 <?php
 namespace App\Services;
 
+use App\Jobs\WhatsSend;
 use App\Repository\SaleRepository;
 use Illuminate\Support\Carbon;
 use SimpleXMLElement;
@@ -48,6 +49,7 @@ class DatasysService
 
         $res = preg_replace("/(<\/?)(\w+):([^>]*>)/", "$1$2$3", $response);
 
+
         curl_close($curl);
         $xml = new SimpleXMLElement($res);
         $body = $xml->xpath('//soapBody')[0];
@@ -66,8 +68,11 @@ class DatasysService
         }
 
         foreach ($responseArray as $row) {
+
             if ($row['Tipo_x0020_Pedido'] == 'Venda') {
+
                 $row['campaign_id'] = $datasysCampaign;
+
 
                 if ($tipoVendas) {
                     foreach ($tipoVendas as $tipo) {
@@ -77,9 +82,7 @@ class DatasysService
                     }
                 } else {
                     $this->repository->save($row);
-
                 }
-
             }
         }
 

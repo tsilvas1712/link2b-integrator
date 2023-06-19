@@ -1,1 +1,2 @@
-<?php
+Example E-mail Teste
+

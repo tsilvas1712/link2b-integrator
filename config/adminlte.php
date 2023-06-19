@@ -313,26 +313,31 @@ return [
             'text' => 'Empresas',
             'url' => '/tenants',
             'icon' => 'fas fa-fw fa-building',
+            'can' => 'Empresas',
         ],
         [
             'text' => 'Perfis',
             'url' => '/profiles',
             'icon' => 'fas fa-fw fa-address-book',
+            'can'=> 'Perfil'
         ],
         [
             'text' => 'Permissões',
             'url' => '/permissions',
             'icon' => 'fas fa-fw fa-id-card',
+            'can' => 'Permissões'
         ],
         [
             'text' => 'Campanhas',
             'url' => '/campanhas',
             'icon' => 'fas fa-fw fa-paper-plane',
+            'can' => 'Campanhas'
         ],
         [
             'text' => 'Mensagens',
             'url' => '/mensagens',
             'icon' => 'fas fa-fw fa-comments-dollar',
+            'can' => 'Mensagens',
         ],
 
     ],

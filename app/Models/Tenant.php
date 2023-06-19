@@ -14,4 +14,26 @@ class Tenant extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function profiles()
+    {
+        return $this->belongsToMany(Profile::class);
+    }
+
+    public function profilesAvailable()
+    {
+        $profiles = Profile::whereNotIn('id',function ($query){
+            $query->select('profile_tenant.profile_id');
+            $query->from('profile_tenant');
+            $query->whereRaw("profile_tenant.tenant_id={$this->id}");
+        })
+            ->get();
+
+        return $profiles;
+    }
+
+    public function compaigns()
+    {
+        return $this->belongsToMany(Campaign::class);
+    }
 }

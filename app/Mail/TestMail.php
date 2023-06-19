@@ -19,6 +19,7 @@ class TestMail extends Mailable implements ShouldQueue
     public function __construct()
     {
         //
+
     }
 
     /**
@@ -37,7 +38,7 @@ class TestMail extends Mailable implements ShouldQueue
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'Integrador._messages.mail',
         );
     }
 

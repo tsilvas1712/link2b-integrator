@@ -1,11 +1,11 @@
 @extends('adminlte::page')
 
-@section('title_postfix', '| Permissões do Perfil {$profile->name}')
+@section('title_postfix', '| Perfis da Empresa {$tenant->tenant_name}')
 
 @section('content_header')
-    <h1>Permissões do Perfil {{$profile->name}}
-        <a href="{{ route('profiles.permissions.available',$profile->id) }}" class="btn btn-success">
-            <i class="fa fa-plus"></i> Adicionar nova permissão
+    <h1>Perfis da Empresa {{$tenant->tenant_name}}
+        <a href="{{ route('tenants.profiles.available',$tenant->id) }}" class="btn btn-success">
+            <i class="fa fa-plus"></i> Adicionar novo Perfil
         </a>
     </h1>
 @stop
@@ -25,16 +25,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($permissions as $permission)
+                    @foreach ($profiles as $profile)
                         <tr>
-                            <td>{{ $permission->name }}</td>
-                            <td>{{ $permission->description }}</td>
+                            <td>{{ $profile->name }}</td>
+                            <td>{{ $profile->description }}</td>
                             <td>
-                                <a class="btn btn-warning" href="#"
-                                    title="Ver Registro"><i class="fa fa-eye"></i></a>
-                                <a class="btn btn-primary" href="#"
-                                   title="Editar Registro"><i class="fa fa-cogs"></i></a>
-                                <a class="btn btn-info" title="Permissões"><i class="fa fa-lock"></i></a>
                                 <a class="btn btn-danger" title="Deletar Registro"><i class="fa fa-trash"></i></a>
 
                             </td>

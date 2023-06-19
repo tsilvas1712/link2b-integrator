@@ -16,6 +16,8 @@ class TenantProfileController extends Controller
     {
         $this->profile = $profile;
         $this->tenant = $tenant;
+
+        $this->middleware(['can:Admin']);
     }
 
     public function profiles($idTenant)
@@ -26,42 +28,40 @@ class TenantProfileController extends Controller
 
         $profiles = $tenant->profiles;
 
-        return view('Integrador.Profile.Permissions.index',compact('profile','permissions'));
+        return view('Integrador.Tenant.Profiles.index',compact('profiles','tenant'));
     }
 
 
-    public function permissionsAvailable($idProfile)
+    public function profilesAvailable($idTenant)
     {
-        $profile = $this->profile->with('permissions')->find($idProfile);
-        if(!$profile)
+        $tenant = $this->tenant->find($idTenant);
+        if(!$tenant)
             return redirect()->back();
 
-        $permissions = $profile->permissionsAvailable();
+        $profiles = $tenant->profilesAvailable();
 
-        return view('Integrador.Profile.Permissions.available',compact('profile','permissions'));
+        return view('Integrador.Tenant.Profiles.available',compact('profiles','tenant'));
 
     }
 
-    public function attachPermissionsProfile(Request $request,$idProfile)
+    public function attachProfileTenant(Request $request,$idTenant)
     {
-        $profile = $this->profile->with('permissions')->find($idProfile);
-        if(!$profile)
+        $tenant = $this->tenant->find($idTenant);
+        if(!$tenant)
             return redirect()->back();
 
-        if(!$request->permissions || count($request->permissions)==0){
+        if(!$request->profiles || count($request->profiles)==0){
             return redirect()
                 ->back()
-                ->with('info','Precisa escolhar pelo menos uma permissão !');
+                ->with('info','Precisa escolhar pelo menos um perfil !');
         }
 
+        $tenant->profiles()->attach($request->profiles);
 
-
-        $profile->permissions()->attach($request->permissions);
-
-        return redirect()->route('profiles.permissions',$profile->id);
+        return redirect()->route('tenants.profiles',$tenant->id);
 
 
     }
-}
+
 
 }

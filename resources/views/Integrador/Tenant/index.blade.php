@@ -28,12 +28,16 @@
                             <td>{{ $tenant->tenant_name }}</td>
                             <td>{{ $tenant->cpf_cnpj }}</td>
                             @if ($tenant->active)
-                                <td class="bg-success text-white text-center">
-                                    <b>Ativo</b>
+                                <td>
+                                    <span class="badge badge-success">
+                                       Ativo
+                                    </span>
                                 </td>
                             @else
-                                <td class="bg-danger text-white text-center">
-                                    <b>Parado</b>
+                                <td>
+                                    <span class="badge badge-danger">
+                                       Bloquedo
+                                    </span>
                                 </td>
                             @endif
 
@@ -42,6 +46,8 @@
                                     title="Ver Registro"><i class="fa fa-eye"></i></a>
                                 <a class="btn btn-primary" href="{{route('tenants.edit',$tenant->id)}}"
                                    title="Editar Registro"><i class="fa fa-cogs"></i></a>
+                                <a class="btn btn-info" href="{{route('tenants.profiles',$tenant->id)}}"
+                                   title="Selecionar Perfil"><i class="fa fa-address-book"></i></a>
                                 <a class="btn btn-danger" title="Deletar Registro"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>

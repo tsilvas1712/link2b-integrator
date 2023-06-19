@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title_postfix', '| Permissões disponíveis para o perfil {$profile->name}')
+@section('title_postfix', '| Perfis disponíveis para a Empresa {$tenant->tenant_name}')
 
 @section('content_header')
-    <h1>Permissões do Perfil <strong>{{$profile->name}}</strong></h1>
+    <h1>Perfil da Empresa <strong>{{$tenant->tenant_name}}</strong></h1>
 @stop
 
 @section('content')
@@ -20,14 +20,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <form method="POST" action="{{route('profiles.permissions.attach',$profile->id)}}">
+                    <form method="POST" action="{{route('tenants.profiles.attach',$tenant->id)}}">
                         @csrf
-                        @foreach ($permissions as $permission)
+                        @foreach ($profiles as $profile)
                             <tr>
                                 <td>
-                                    <input type="checkbox" name="permissions[]" value="{{$permission->id}}"/>
+                                    <input type="checkbox" name="profiles[]" value="{{$profile->id}}"/>
                                 </td>
-                                <td>{{ $permission->name }}</td>
+                                <td>{{ $profile->name }}</td>
                             </tr>
                         @endforeach
                         <tr>

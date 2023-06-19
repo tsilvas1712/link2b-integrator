@@ -13,13 +13,25 @@ class CampaignController extends Controller
     public function __construct(Campaign $campaign)
     {
       $this->repository = $campaign;
+
+      $this->middleware(['can:Campanhas']);
     }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $campaigns = $this->repository->latest()->paginate();
+
+        $user = auth()->user();
+
+        if($user->is_admin){
+            $campaigns = $this->repository->latest()->paginate();
+
+            return view('Integrador.Campaigns.index',compact('campaigns'));
+        }
+
+        $campaigns = $this->repository->where('tenant_id',$user->tenant->id)->latest()->paginate();
+
 
         return view('Integrador.Campaigns.index',compact('campaigns'));
     }
@@ -29,7 +41,7 @@ class CampaignController extends Controller
      */
     public function create()
     {
-        //
+        return view('Integrador.Campaigns.create');
     }
 
     /**
@@ -37,7 +49,15 @@ class CampaignController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->except('_token');
+        $data['active'] = true;
+        $user = auth()->user();
+
+        $data['tenant_id'] = $user->tenant->id;
+
+        $this->repository->create($data);
+
+        return redirect()->route('campanhas.index');
     }
 
     /**
@@ -45,7 +65,12 @@ class CampaignController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $campaign = $this->repository->where('id',$id)->first();
+
+        if(!$campaign)
+            return redirect()->back();
+
+        return view('Integrador.Campaigns.show',compact('campaign'));
     }
 
     /**
@@ -53,7 +78,12 @@ class CampaignController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $campaign = $this->repository->where('id',$id)->first();
+
+        if(!$campaign)
+            return redirect()->back();
+
+        return view('Integrador.Campaigns.edit',compact('campaign'));
     }
 
     /**
@@ -61,7 +91,14 @@ class CampaignController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $campaign = $this->repository->where('id',$id)->first();
+
+        if(!$campaign)
+            return redirect()->back();
+
+        $campaign->update($request->all());
+
+        return redirect()->route('campanhas.index');
     }
 
     /**
@@ -69,6 +106,13 @@ class CampaignController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $campaign = $this->repository->where('id',$id)->first();
+
+        if(!$campaign)
+            return redirect()->back();
+
+        $campaign->delete();
+
+        return redirect()->route('campanhas.index');
     }
 }
