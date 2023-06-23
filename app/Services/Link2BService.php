@@ -12,10 +12,16 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 class Link2BService implements ShouldQueue
 {
-    use Queueable;
+  use Queueable;
 
-    public function sendWhats(object $sale,object $campaings)
-    {
-        WhatsSend::dispatch($sale,$campaings);
+  public function sendWhats(object $sale, object $campaings)
+  {
+
+    if ($sale->status === 'PORTABILIDADE') {
+      $sale->update(['status' => 'AGENDADO']);
+      WhatsSend::dispatch($sale, $campaings)->delay(now()->addMinutes(10));
+    } else {
+      WhatsSend::dispatch($sale, $campaings);
     }
+  }
 }

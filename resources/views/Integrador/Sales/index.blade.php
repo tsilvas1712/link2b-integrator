@@ -9,13 +9,14 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            #filtros
+
         </div>
         <div class="card-body">
             <table class="table table-condensed">
                 <thead>
                     <tr>
                         <th>id</th>
+                        <th>Campanha</th>
                         <th>Filial</th>
                         <th>Data Pedido</th>
                         <th>Tipo Pedido</th>
@@ -30,25 +31,57 @@
                     @foreach ($sales as $sale)
                         <tr>
                             <td>{{ $sale->id_venda }}</td>
+                            <td>{{ $sale->name }}</td>
                             <td>{{ $sale->filial }}</td>
                             <td>{{ date('d/m/Y H:i:s', strtotime($sale->data_pedido)) }}</td>
-                            <td>{{ $sale->modalidade_venda }}</td>
-                            <td>R$ {{ number_format($sale->valor_total, 2, ',', '.') }}</td>
-                            <td>{{ $sale->nome_cliente }}</td>
-                            <td>{{ $sale->nome_vendedor }}</td>
-                            @if ($sale->status)
-                                <td>
-                                    <span class="badge badge-success">
-                                       Enviado
-                                    </span>
-                                </td>
-                            @else
-                                <td>
-                                    <span class="badge badge-danger">
-                                       Não enviado
-                                    </span>
-                                </td>
-                            @endif
+                            <td>{{ $sale->modalidade }}</td>
+                            <td>R$ {{ number_format($sale->valor_caixa, 2, ',', '.') }}</td>
+                            <td>{{ Str::upper($sale->nome_cliente) }}</td>
+                            <td>{{ Str::upper($sale->nome_vendedor) }}</td>
+                            @switch($sale->status)
+                                @case('PENDENTE')
+                                    <td>
+                                        <span class="badge badge-primary">
+                                            Pendente
+                                        </span>
+                                    </td>
+                                @break
+
+                                @case('PORTABILIDADE')
+                                    <td>
+                                        <span class="badge badge-warning">
+                                            Portabilidade
+                                        </span>
+                                    </td>
+                                @break
+
+                                @case('ENVIADO')
+                                    <td>
+                                        <span class="badge badge-success">
+                                            Enviado
+                                        </span>
+                                    </td>
+                                @break
+
+                                @case('AGENDADO')
+                                    <td>
+                                        <span class="badge badge-info">
+                                            Agendado
+                                        </span>
+                                    </td>
+                                @break
+
+                                @case('ERROR')
+                                    <td>
+                                        <span class="badge badge-danger">
+                                            Error
+                                        </span>
+                                    </td>
+                                @break
+
+                                @default
+                            @endswitch
+
 
 
 

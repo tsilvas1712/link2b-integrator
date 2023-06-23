@@ -5,22 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Sale extends Model
+class Datasys extends Model
 {
   use HasFactory;
 
-  protected $table = 'sales';
-
   protected $fillable = [
-    'campaign_id', 'id_venda', 'gsm', 'filial',
+    'tenant_id', 'id_venda', 'gsm', 'gsm_portable', 'filial',
     'data_pedido', 'nf_compra', 'tipo_pedido', 'cumpom_fiscal', 'modalidade', 'nota_fiscal', 'data_nf',
     'descricao', 'fabricante', 'serial', 'qantidade', 'valor_tabela', 'valor_plano', 'valor_caixa',
-    'desconto', 'total_item', 'nome_vendedor', 'nome_cliente', 'status'
+    'desconto', 'total_item', 'nome_vendedor', 'nome_cliente'
   ];
-
-
-  public function campaign()
-  {
-    return $this->hasOne(Campaign::class);
-  }
 }

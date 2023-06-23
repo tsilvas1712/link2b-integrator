@@ -11,11 +11,12 @@ return new class extends Migration
    */
   public function up(): void
   {
-    Schema::create('sales', function (Blueprint $table) {
+    Schema::create('datasys', function (Blueprint $table) {
       $table->id();
-      $table->foreignId('campaign_id')->constrained('campaigns');
+      $table->foreignId('tenant_id')->constrained('tenants');
       $table->bigInteger('id_venda');
       $table->string('gsm')->nullable();
+      $table->string('gsm_portable')->nullable();
       $table->string('filial');
       $table->timestamp('data_pedido');
       $table->string('nf_compra')->nullable();
@@ -35,7 +36,6 @@ return new class extends Migration
       $table->double('total_item', 10, 2)->nullable();
       $table->string('nome_vendedor')->nullable();
       $table->string('nome_cliente')->nullable();
-      $table->enum('status', ['PENDENTE', 'PORTABILIDADE', 'AGENDADO', 'ENVIADO', 'ERROR']);
       $table->timestamps();
     });
   }
@@ -45,6 +45,6 @@ return new class extends Migration
    */
   public function down(): void
   {
-    Schema::dropIfExists('sales');
+    Schema::dropIfExists('datasys');
   }
 };

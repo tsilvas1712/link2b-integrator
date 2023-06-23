@@ -9,48 +9,45 @@ use Illuminate\Console\Command;
 
 class Link2BotCommand extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'link2bot:send';
+  /**
+   * The name and signature of the console command.
+   *
+   * @var string
+   */
+  protected $signature = 'link2bot:send';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Dispara Mensagem Whatsapp';
+  /**
+   * The console command description.
+   *
+   * @var string
+   */
+  protected $description = 'Dispara Mensagem Whatsapp';
 
-    /**
-     * Execute the console command.
-     */
-    public function handle()
-    {
-        return $this->info($this->sendWhats());
+  /**
+   * Execute the console command.
+   */
+  public function handle()
+  {
+    return $this->info($this->sendWhats());
+  }
+
+  public function sendWhats()
+  {
+
+    $campaigns = Campaign::where('active', true)->get();
+
+    $link2BService = new Link2BService();
+    $count = 0;
+
+    foreach ($campaigns as $campaign) {
+      $sales = Sale::where('status', 'PENDENTE')->orWhere('status', 'PORTABILIDADE')->get();
+
+      foreach ($sales as $sale) {
+        $count++;
+        $link2BService->sendWhats($sale, $campaign);
+      }
     }
 
-    public function sendWhats()
-    {
-
-        $campaigns = Campaign::where('active', true)->get();
-
-        $link2BService = new Link2BService();
-        $count = 0;
-
-        foreach ($campaigns as $campaign){
-            $sales = Sale::where('status',false)->get();
-
-            foreach ($sales as $sale)
-            {
-                $count ++;
-                $link2BService->sendWhats($sale,$campaign);
-            }
-
-
-        }
-
-        return $count;
-    }
+    return $count;
+  }
 }

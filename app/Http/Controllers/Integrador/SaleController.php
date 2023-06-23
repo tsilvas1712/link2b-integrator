@@ -9,81 +9,110 @@ use Illuminate\Support\Facades\DB;
 
 class SaleController extends Controller
 {
-    protected $repository;
+  protected $repository;
 
-    public function __construct(Sale $sale)
-    {
-        $this->repository = $sale;
-        $this->middleware(['can:Mensagens']);
+  public function __construct(Sale $sale)
+  {
+    $this->repository = $sale;
+    $this->middleware(['can:Mensagens']);
+  }
+  /**
+   * Display a listing of the resource.
+   */
+  public function index()
+  {
+
+    $user = auth()->user();
+
+    if ($user->is_admin) {
+      $sales = $this->repository->latest()->paginate(10);
+
+      return view('Integrador.Sales.index', compact('sales'));
     }
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
+    $sales = DB::table('sales')
+      ->leftJoin('campaigns', 'sales.campaign_id', '=', 'campaigns.id')
+      ->leftJoin('tenants', 'campaigns.tenant_id', '=', 'tenants.id')
+      ->where('tenants.id', $user->tenant_id)
 
-        $user = auth()->user();
+      ->orderBy('sales.createD_at', 'DESC')
+      ->paginate(10);
 
-        if($user->is_admin){
-            $sales = $this->repository->latest()->paginate(10);
 
-            return view('Integrador.Sales.index', compact('sales'));
-        }
-        $sales = DB::table('sales')
-            ->leftJoin('campaigns','sales.campaign_id','=','campaigns.id')
-            ->leftJoin('tenants','campaigns.tenant_id','=','tenants.id')
-            ->where('tenants.id',$user->tenant_id)
-            ->orderBy('sales.createD_at','DESC')
-            ->paginate(10);
 
-        return view('Integrador.Sales.index', compact('sales'));
-    }
+    return view('Integrador.Sales.index', compact('sales'));
+  }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+  public function indexCampaign($campaign)
+  {
+    $sales = DB::table('sales')
+      ->leftJoin('campaigns', 'sales.campaign_id', '=', 'campaigns.id')
+      ->leftJoin('tenants', 'campaigns.tenant_id', '=', 'tenants.id')
+      ->where('campaign_id', $campaign)
+      ->orderBy('sales.createD_at', 'DESC')
+      ->paginate(10);
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+    return view('Integrador.Sales.index', compact('sales'));
+  }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+  public function indexStatus(String $status)
+  {
+    $sales = DB::table('sales')
+      ->leftJoin('campaigns', 'sales.campaign_id', '=', 'campaigns.id')
+      ->leftJoin('tenants', 'campaigns.tenant_id', '=', 'tenants.id')
+      ->where('status', $status)
+      ->orderBy('sales.createD_at', 'DESC')
+      ->paginate(10);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+    return view('Integrador.Sales.index', compact('sales'));
+  }
+
+  /**
+   * Show the form for creating a new resource.
+   */
+  public function create()
+  {
+    //
+  }
+
+  /**
+   * Store a newly created resource in storage.
+   */
+  public function store(Request $request)
+  {
+    //
+  }
+
+  /**
+   * Display the specified resource.
+   */
+  public function show(string $id)
+  {
+    //
+  }
+
+  /**
+   * Show the form for editing the specified resource.
+   */
+  public function edit(string $id)
+  {
+    //
+  }
+
+  /**
+   * Update the specified resource in storage.
+   */
+  public function update(Request $request, string $id)
+  {
+    //
+  }
+
+  /**
+   * Remove the specified resource from storage.
+   */
+  public function destroy(string $id)
+  {
+    //
+  }
 }
