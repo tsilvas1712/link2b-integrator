@@ -30,13 +30,13 @@
                             @if ($campaign->active)
                                 <td>
                                     <span class="badge badge-success">
-                                       Ativo
+                                        Ativo
                                     </span>
                                 </td>
                             @else
                                 <td>
                                     <span class="badge badge-danger">
-                                       Bloquedo
+                                        Bloquedo
                                     </span>
                                 </td>
                             @endif
@@ -44,8 +44,9 @@
                             <td>
                                 <a class="btn btn-warning" href="{{ route('campanhas.show', $campaign->id) }}"
                                     title="Ver Registro"><i class="fa fa-eye"></i></a>
-                                <a class="btn btn-primary" href="{{route('campanhas.edit',$campaign->id)}}" title="Editar Registro"><i class="fa fa-cogs"></i></a>
-                                <a class="btn btn-danger" title="Deletar Registro"><i class="fa fa-trash"></i></a>
+                                <a class="btn btn-primary" href="{{ route('campanhas.edit', $campaign->id) }}"
+                                    title="Editar Registro"><i class="fa fa-cogs"></i></a>
+
                             </td>
                         </tr>
                     @endforeach

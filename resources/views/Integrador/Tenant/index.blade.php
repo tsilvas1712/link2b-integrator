@@ -30,13 +30,13 @@
                             @if ($tenant->active)
                                 <td>
                                     <span class="badge badge-success">
-                                       Ativo
+                                        Ativo
                                     </span>
                                 </td>
                             @else
                                 <td>
                                     <span class="badge badge-danger">
-                                       Bloquedo
+                                        Bloquedo
                                     </span>
                                 </td>
                             @endif
@@ -44,11 +44,11 @@
                             <td>
                                 <a class="btn btn-warning" href="{{ route('tenants.show', $tenant->id) }}"
                                     title="Ver Registro"><i class="fa fa-eye"></i></a>
-                                <a class="btn btn-primary" href="{{route('tenants.edit',$tenant->id)}}"
-                                   title="Editar Registro"><i class="fa fa-cogs"></i></a>
-                                <a class="btn btn-info" href="{{route('tenants.profiles',$tenant->id)}}"
-                                   title="Selecionar Perfil"><i class="fa fa-address-book"></i></a>
-                                <a class="btn btn-danger" title="Deletar Registro"><i class="fa fa-trash"></i></a>
+                                <a class="btn btn-primary" href="{{ route('tenants.edit', $tenant->id) }}"
+                                    title="Editar Registro"><i class="fa fa-cogs"></i></a>
+                                <a class="btn btn-info" href="{{ route('tenants.profiles', $tenant->id) }}"
+                                    title="Selecionar Perfil"><i class="fa fa-address-book"></i></a>
+
                             </td>
                         </tr>
                     @endforeach

@@ -19,7 +19,7 @@ class Link2BService implements ShouldQueue
 
     if ($sale->status === 'PORTABILIDADE') {
       $sale->update(['status' => 'AGENDADO']);
-      WhatsSend::dispatch($sale, $campaings)->delay(now()->addMinutes(10));
+      WhatsSend::dispatch($sale, $campaings)->delay(now()->addMinutes(6));
     } else {
       WhatsSend::dispatch($sale, $campaings);
     }
