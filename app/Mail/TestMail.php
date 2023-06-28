@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Mail;
+  namespace App\Mail;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
-use Illuminate\Queue\SerializesModels;
+  use Illuminate\Bus\Queueable;
+  use Illuminate\Contracts\Queue\ShouldQueue;
+  use Illuminate\Mail\Mailable;
+  use Illuminate\Mail\Mailables\Content;
+  use Illuminate\Mail\Mailables\Envelope;
+  use Illuminate\Queue\SerializesModels;
 
-class TestMail extends Mailable implements ShouldQueue
-{
+  class TestMail extends Mailable implements ShouldQueue
+  {
     use Queueable, SerializesModels;
 
     /**
@@ -18,7 +18,7 @@ class TestMail extends Mailable implements ShouldQueue
      */
     public function __construct()
     {
-        //
+      //
 
     }
 
@@ -27,9 +27,9 @@ class TestMail extends Mailable implements ShouldQueue
      */
     public function envelope(): Envelope
     {
-        return new Envelope(
-            subject: 'Test Mail',
-        );
+      return new Envelope(
+        subject: 'Test Mail',
+      );
     }
 
     /**
@@ -37,9 +37,9 @@ class TestMail extends Mailable implements ShouldQueue
      */
     public function content(): Content
     {
-        return new Content(
-            view: 'Integrador._messages.mail',
-        );
+      return new Content(
+        view: 'Integrador._messages.mail',
+      );
     }
 
     /**
@@ -49,6 +49,6 @@ class TestMail extends Mailable implements ShouldQueue
      */
     public function attachments(): array
     {
-        return [];
+      return [];
     }
-}
+  }

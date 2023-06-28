@@ -1,38 +1,29 @@
 <?php
 
-namespace App\Http\Controllers\Integrador;
+  namespace App\Http\Controllers\Integrador;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreUpdateTenant;
-use App\Models\Tenant;
-use Illuminate\Http\Request;
+  use App\Http\Controllers\Controller;
+  use App\Http\Requests\StoreUpdateTenant;
+  use App\Models\Tenant;
 
-class TenantController extends Controller
-{
-  protected $repository;
-
-  public function __construct(Tenant $tenant)
+  class TenantController extends Controller
   {
-    $this->repository = $tenant;
+    protected $repository;
+
+    public function __construct(Tenant $tenant)
+    {
+      $this->repository = $tenant;
       $this->middleware(['can:Empresas']);
-  }
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $tenants = $this->repository->latest()->paginate(8);
+      $tenants = $this->repository->latest()->paginate(8);
 
-        return view('Integrador.Tenant.index',compact('tenants'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-        return view('Integrador.Tenant.create');
+      return view('Integrador.Tenant.index', compact('tenants'));
     }
 
     /**
@@ -40,12 +31,21 @@ class TenantController extends Controller
      */
     public function store(StoreUpdateTenant $request)
     {
-        $data = $request->all();
-        $data['active'] = true;
+      $data = $request->all();
+      $data['active'] = true;
 
-       $this->repository->create($data);
+      $this->repository->create($data);
 
-       return redirect()->route('tenants.index');
+      return redirect()->route('tenants.index');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+      //
+      return view('Integrador.Tenant.create');
     }
 
     /**
@@ -53,12 +53,13 @@ class TenantController extends Controller
      */
     public function show(string $id)
     {
-        $tenant = $this->repository->where('id',$id)->first();
+      $tenant = $this->repository->where('id', $id)->first();
 
-        if(!$tenant)
-            return redirect()->back();
+      if (!$tenant) {
+        return redirect()->back();
+      }
 
-        return view('Integrador.Tenant.show',compact('tenant'));
+      return view('Integrador.Tenant.show', compact('tenant'));
     }
 
     /**
@@ -66,12 +67,13 @@ class TenantController extends Controller
      */
     public function edit(string $id)
     {
-        $tenant = $this->repository->where('id',$id)->first();
+      $tenant = $this->repository->where('id', $id)->first();
 
-        if(!$tenant)
-            return redirect()->back();
+      if (!$tenant) {
+        return redirect()->back();
+      }
 
-        return view('Integrador.Tenant.edit',compact('tenant'));
+      return view('Integrador.Tenant.edit', compact('tenant'));
     }
 
     /**
@@ -79,14 +81,15 @@ class TenantController extends Controller
      */
     public function update(StoreUpdateTenant $request, string $id)
     {
-        $tenant = $this->repository->where('id',$id)->first();
+      $tenant = $this->repository->where('id', $id)->first();
 
-        if(!$tenant)
-            return redirect()->back();
+      if (!$tenant) {
+        return redirect()->back();
+      }
 
-        $tenant->update($request->all());
+      $tenant->update($request->all());
 
-        return redirect()->route('tenants.index');
+      return redirect()->route('tenants.index');
     }
 
     /**
@@ -94,13 +97,14 @@ class TenantController extends Controller
      */
     public function destroy(string $id)
     {
-        $tenant = $this->repository->where('id',$id)->first();
+      $tenant = $this->repository->where('id', $id)->first();
 
-        if(!$tenant)
-            return redirect()->back();
+      if (!$tenant) {
+        return redirect()->back();
+      }
 
-        $tenant->delete();
+      $tenant->delete();
 
-        return redirect()->route('tenants.index');
+      return redirect()->route('tenants.index');
     }
-}
+  }

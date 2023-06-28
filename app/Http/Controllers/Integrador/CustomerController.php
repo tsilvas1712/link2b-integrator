@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Integrador;
+  namespace App\Http\Controllers\Integrador;
 
-use App\Http\Controllers\Controller;
-use App\Models\Customer;
-use Illuminate\Http\Request;
+  use App\Http\Controllers\Controller;
+  use App\Models\Customer;
+  use Illuminate\Http\Request;
 
-class CustomerController extends Controller
-{
+  class CustomerController extends Controller
+  {
     private $repository;
+
     public function __construct(Customer $customer)
     {
-        $this->repository = $customer;
+      $this->repository = $customer;
     }
 
     /**
@@ -19,20 +20,11 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = $this->repository->latest()->paginate();
+      $customers = $this->repository->latest()->paginate();
 
-        return view('Integrador.Customer.index',[
-            'customers' => $customers,
-        ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-        return view('Integrador.Customer.create');
+      return view('Integrador.Customer.index', [
+        'customers' => $customers,
+      ]);
     }
 
     /**
@@ -40,11 +32,20 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
+      $data = $request->all();
 
-        $this->repository->create($data);
+      $this->repository->create($data);
 
-        return redirect()->route('clientes.index');
+      return redirect()->route('clientes.index');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+      //
+      return view('Integrador.Customer.create');
     }
 
     /**
@@ -52,14 +53,15 @@ class CustomerController extends Controller
      */
     public function show(string $id)
     {
-        $customer = $this->repository->where('id',$id)->first();
+      $customer = $this->repository->where('id', $id)->first();
 
-        if(!$customer)
-            return redirect()->back();
+      if (!$customer) {
+        return redirect()->back();
+      }
 
-        return view('Integrador.Customer.show',[
-            'customer' => $customer
-        ]);
+      return view('Integrador.Customer.show', [
+        'customer' => $customer
+      ]);
     }
 
     /**
@@ -67,7 +69,7 @@ class CustomerController extends Controller
      */
     public function edit(string $id)
     {
-        //
+      //
     }
 
     /**
@@ -75,7 +77,7 @@ class CustomerController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+      //
     }
 
     /**
@@ -83,13 +85,14 @@ class CustomerController extends Controller
      */
     public function destroy(string $id)
     {
-        $customer = $this->repository->where('id',$id)->first();
+      $customer = $this->repository->where('id', $id)->first();
 
-        if(!$customer)
-            return redirect()->back();
+      if (!$customer) {
+        return redirect()->back();
+      }
 
-        $customer->delete();
+      $customer->delete();
 
-        return redirect()->route('clientes.index');
+      return redirect()->route('clientes.index');
     }
-}
+  }

@@ -1,36 +1,29 @@
 <?php
 
-namespace App\Http\Controllers\Integrador;
+  namespace App\Http\Controllers\Integrador;
 
-use App\Http\Controllers\Controller;
-use App\Models\Profile;
-use Illuminate\Http\Request;
+  use App\Http\Controllers\Controller;
+  use App\Models\Profile;
+  use Illuminate\Http\Request;
 
-class ProfileController extends Controller
-{
+  class ProfileController extends Controller
+  {
     protected $repository;
 
     public function __construct(Profile $profile)
     {
-        $this->repository = $profile;
-        $this->middleware(['can:Perfis']);
+      $this->repository = $profile;
+      $this->middleware(['can:Perfis']);
     }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $profiles = $this->repository->latest()->paginate(8);
+      $profiles = $this->repository->latest()->paginate(8);
 
-       return view('Integrador.Profile.index',compact('profiles'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('Integrador.Profile.create');
+      return view('Integrador.Profile.index', compact('profiles'));
     }
 
     /**
@@ -38,11 +31,19 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
+      $data = $request->all();
 
-        $this->repository->create($data);
+      $this->repository->create($data);
 
-        return redirect()->route('profiles.index');
+      return redirect()->route('profiles.index');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+      return view('Integrador.Profile.create');
     }
 
     /**
@@ -50,12 +51,13 @@ class ProfileController extends Controller
      */
     public function show(string $id)
     {
-        $profile = $this->repository->where('id',$id)->first();
+      $profile = $this->repository->where('id', $id)->first();
 
-        if(!$profile)
-            return redirect()->back();
+      if (!$profile) {
+        return redirect()->back();
+      }
 
-        return view('Integrador.Profile.show',compact('profile'));
+      return view('Integrador.Profile.show', compact('profile'));
     }
 
     /**
@@ -63,12 +65,13 @@ class ProfileController extends Controller
      */
     public function edit(string $id)
     {
-        $profile = $this->repository->where('id',$id)->first();
+      $profile = $this->repository->where('id', $id)->first();
 
-        if(!$profile)
-            return redirect()->back();
+      if (!$profile) {
+        return redirect()->back();
+      }
 
-        return view('Integrador.Profile.edit',compact('profile'));
+      return view('Integrador.Profile.edit', compact('profile'));
     }
 
     /**
@@ -76,14 +79,15 @@ class ProfileController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $profile = $this->repository->where('id',$id)->first();
+      $profile = $this->repository->where('id', $id)->first();
 
-        if(!$profile)
-            return redirect()->back();
+      if (!$profile) {
+        return redirect()->back();
+      }
 
-        $profile->update($request->all());
+      $profile->update($request->all());
 
-        return redirect()->route('profiles.index');
+      return redirect()->route('profiles.index');
     }
 
     /**
@@ -91,13 +95,14 @@ class ProfileController extends Controller
      */
     public function destroy(string $id)
     {
-        $profile = $this->repository->where('id',$id)->first();
+      $profile = $this->repository->where('id', $id)->first();
 
-        if(!$profile)
-            return redirect()->back();
+      if (!$profile) {
+        return redirect()->back();
+      }
 
-        $profile->delete();
+      $profile->delete();
 
-        return redirect()->route('profiles.index');
+      return redirect()->route('profiles.index');
     }
-}
+  }

@@ -1,37 +1,29 @@
 <?php
 
-namespace App\Http\Controllers\Integrador;
+  namespace App\Http\Controllers\Integrador;
 
-use App\Http\Controllers\Controller;
-use App\Models\Permission;
-use Illuminate\Http\Request;
+  use App\Http\Controllers\Controller;
+  use App\Models\Permission;
+  use Illuminate\Http\Request;
 
-class PermissionController extends Controller
-{
+  class PermissionController extends Controller
+  {
     protected $repository;
 
     public function __construct(Permission $permission)
     {
-        $this->repository = $permission;
-        $this->middleware(['can:Permissões']);
+      $this->repository = $permission;
+      $this->middleware(['can:Permissões']);
     }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $permissions = $this->repository->latest()->paginate(8);
+      $permissions = $this->repository->latest()->paginate(8);
 
-        return view('Integrador.Permission.index',compact('permissions'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('Integrador.Permission.create');
-
+      return view('Integrador.Permission.index', compact('permissions'));
     }
 
     /**
@@ -39,11 +31,19 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
+      $data = $request->all();
 
-        $this->repository->create($data);
+      $this->repository->create($data);
 
-        return redirect()->route('permissions.index');
+      return redirect()->route('permissions.index');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+      return view('Integrador.Permission.create');
     }
 
     /**
@@ -51,12 +51,13 @@ class PermissionController extends Controller
      */
     public function show(string $id)
     {
-        $permission = $this->repository->where('id',$id)->first();
+      $permission = $this->repository->where('id', $id)->first();
 
-        if(!$permission)
-            return redirect()->back();
+      if (!$permission) {
+        return redirect()->back();
+      }
 
-        return view('Integrador.Permission.show',compact('permission'));
+      return view('Integrador.Permission.show', compact('permission'));
     }
 
     /**
@@ -64,12 +65,13 @@ class PermissionController extends Controller
      */
     public function edit(string $id)
     {
-        $permission = $this->repository->where('id',$id)->first();
+      $permission = $this->repository->where('id', $id)->first();
 
-        if(!$permission)
-            return redirect()->back();
+      if (!$permission) {
+        return redirect()->back();
+      }
 
-        return view('Integrador.Permission.edit',compact('permission'));
+      return view('Integrador.Permission.edit', compact('permission'));
     }
 
     /**
@@ -77,14 +79,15 @@ class PermissionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $permission = $this->repository->where('id',$id)->first();
+      $permission = $this->repository->where('id', $id)->first();
 
-        if(!$permission)
-            return redirect()->back();
+      if (!$permission) {
+        return redirect()->back();
+      }
 
-        $permission->update($request->all());
+      $permission->update($request->all());
 
-        return redirect()->route('permissions.index');
+      return redirect()->route('permissions.index');
     }
 
     /**
@@ -92,13 +95,14 @@ class PermissionController extends Controller
      */
     public function destroy(string $id)
     {
-        $permission = $this->repository->where('id',$id)->first();
+      $permission = $this->repository->where('id', $id)->first();
 
-        if(!$permission)
-            return redirect()->back();
+      if (!$permission) {
+        return redirect()->back();
+      }
 
-        $permission->delete();
+      $permission->delete();
 
-        return redirect()->route('permissions.index');
+      return redirect()->route('permissions.index');
     }
-}
+  }

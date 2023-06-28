@@ -1,21 +1,20 @@
 <?php
 
-namespace App\Console;
+  namespace App\Console;
 
-use Illuminate\Console\Scheduling\Schedule;
-use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+  use Illuminate\Console\Scheduling\Schedule;
+  use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
-class Kernel extends ConsoleKernel
-{
+  class Kernel extends ConsoleKernel
+  {
     /**
      * Define the application's command schedule.
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
-        $schedule->command('datasys:sales')->everyMinute();
-        $schedule->command('link2bot:send')->everyMinute();
-
+      // $schedule->command('inspire')->hourly();
+      $schedule->command('datasys:sales')->dailyAt('23:00');
+      $schedule->command('link2bot:send')->dailyAt('08:00');
     }
 
     /**
@@ -23,10 +22,10 @@ class Kernel extends ConsoleKernel
      */
     protected function commands(): void
     {
-        $this->load(__DIR__.'/Commands');
+      $this->load(__DIR__ . '/Commands');
 
-        require base_path('routes/console.php');
+      require base_path('routes/console.php');
     }
 
 
-}
+  }
