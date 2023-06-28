@@ -15,10 +15,17 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         DB::table('users')->insert([
-            'name' => 'Imagem Telecom',
-            'email' => 'imagemtelecom@gmail.com',
-            'password' => Hash::make('link2b@2023'),
-            'is_admin' => false,
-        ]);
+               'name' => 'Link2 Data',
+               'email' => 'link2data@link2b.com.br',
+               'password' => Hash::make('Link2b@2023'),
+               'is_admin' => true,
+           ]);
+
+        DB::table('users')->insert([
+               'name' => 'Imagem Telecom',
+               'email' => 'imagem.telecom@link2b.com.br',
+               'password' => Hash::make('Link2b@2023'),
+               'is_admin' => false,
+           ]);
     }
 }
