@@ -24,3 +24,8 @@
 .login-logo a, .register-logo a {
     color: #ffffff;
 }
+
+.preloader {
+
+    background-color: #0082BA !important;
+}

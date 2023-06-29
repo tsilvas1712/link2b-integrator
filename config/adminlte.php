@@ -112,8 +112,8 @@ return [
       'path' => 'img/logos/Logo.png',
       'alt' => 'Link2B Preloader Image',
       'effect' => 'animation__shake',
-      'width' => 100,
-      'height' => 100,
+      'width' => 300,
+      'height' => 300,
     ],
   ],
 
