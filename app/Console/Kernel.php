@@ -14,7 +14,7 @@
     {
       // $schedule->command('inspire')->hourly();
       $schedule->command('datasys:sync')->dailyAt('10:30');
-      $schedule->command('link2bot:send')->dailyAt('11:30');
+      $schedule->command('link2bot:send')->dailyAt('12:30');
     }
 
     /**
