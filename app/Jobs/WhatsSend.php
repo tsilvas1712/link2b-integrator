@@ -78,8 +78,8 @@
         Log::error("Erro ao enviar: " . json_encode($this->sale));
         Log::info("Erro ao enviar: " . json_encode($responseBodyAsString));
         Log::error($responseBodyAsString);
-      }
-      Log::info("End Send Link2Bot");*/
+      }*/
+      Log::info("End Send Link2Bot");
       $this->sale->update(['status' => 'ENVIADO']);
     }
   }
