@@ -147,6 +147,7 @@
       foreach ($responseArray as $row) {
         $row['tenant_id'] = $tenant_id;
         if (!is_array($row['GSM']) && $row['Tipo_x0020_Pedido'] == 'Venda') {
+
           $this->datasysRepository->saveDatasys($row);
           $count++;
         }
