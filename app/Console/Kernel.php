@@ -13,8 +13,8 @@
     protected function schedule(Schedule $schedule): void
     {
       // $schedule->command('inspire')->hourly();
-      $schedule->command('datasys:sync')->dailyAt('02:00');
-      $schedule->command('link2bot:send')->dailyAt('08:00');
+      $schedule->command('datasys:sync')->dailyAt('10:30');
+      $schedule->command('link2bot:send')->dailyAt('11:30');
     }
 
     /**

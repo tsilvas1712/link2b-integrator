@@ -99,8 +99,8 @@
      */
     public function syncDatasys($datasysUrl, $datasysToken, $tenant_id)
     {
-      $dateInicial = Carbon::now()->format('Y-m-d');
-      $dateFinal = Carbon::now()->format('Y-m-d');
+      $dateInicial = Carbon::now()->subDays(1)->format('Y-m-d');
+      $dateFinal = Carbon::now()->subDays(1)->format('Y-m-d');
 
       $curl = curl_init();
 
