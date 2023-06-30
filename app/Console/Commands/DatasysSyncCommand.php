@@ -45,10 +45,10 @@
         $tenant_id = $campaign->tenant_id;
 
         $dataService->syncDatasys($datasysUrl, $datasysToken, $tenant_id);
-        $datasysService = $dataService->sendDatasys($tenant_id, $campaign->id, $campaign->sales_modalities);
+        $dataService->sendDatasys($tenant_id, $campaign->id, $campaign->sales_modalities);
         $datasys->truncate();
       }
 
-      return $this->info($datasysService);
+
     }
   }

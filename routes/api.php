@@ -1,6 +1,12 @@
 <?php
 
-use Illuminate\Http\Request;
+  use App\Models\Campaign;
+  use App\Models\Datasys;
+  use App\Models\Sale;
+  use App\Repository\DatasysRepository;
+  use App\Repository\SaleRepository;
+  use App\Services\DatasysService;
+  use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +19,29 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+  Route::get('/datasync',function (){
+    $campaigns = Campaign::where('active', true)->get();
+    $datasys = new Datasys();
+    $sale = new Sale();
+    $repositorySale = new SaleRepository($sale);
+    $repositoryDatasys = new DatasysRepository($datasys);
+    $dataService = new DatasysService($repositorySale, $repositoryDatasys);
+
+
+    foreach ($campaigns as $campaign) {
+      $datasysToken = $campaign->token_customer;
+      $datasysUrl = $campaign->endpoint_customer;
+      $tenant_id = $campaign->tenant_id;
+
+      $dataService->syncDatasys($datasysUrl, $datasysToken, $tenant_id);
+      $dataService->sendDatasys($tenant_id, $campaign->id, $campaign->sales_modalities);
+      $datasys->truncate();
+    }
+
+    return 'ok';
+
+  });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
