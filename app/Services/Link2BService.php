@@ -14,7 +14,7 @@
     {
       if ($sale->status === 'PORTABILIDADE') {
         $sale->update(['status' => 'AGENDADO']);
-        WhatsSend::dispatch($sale, $campaings)->delay(now()->addMinutes(6));
+        WhatsSend::dispatch($sale, $campaings)->delay(now()->addDays(4));
       } else {
         WhatsSend::dispatch($sale, $campaings);
       }
