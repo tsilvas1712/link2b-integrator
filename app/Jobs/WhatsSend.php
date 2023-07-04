@@ -65,7 +65,7 @@
                           ], JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE);
 
       Log::info("Start Send Link2Bot for Phone: " . $body);
-      /*try {
+      try {
         $request = new Request('POST', $url, $headers, $body);
         $res = $client->sendAsync($request)->wait();
         if ($res->getStatusCode()) {
@@ -78,7 +78,7 @@
         Log::error("Erro ao enviar: " . json_encode($this->sale));
         Log::info("Erro ao enviar: " . json_encode($responseBodyAsString));
         Log::error($responseBodyAsString);
-      }*/
+      }
       Log::info("End Send Link2Bot");
       $this->sale->update(['status' => 'ENVIADO']);
     }
