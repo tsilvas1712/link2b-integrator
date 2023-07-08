@@ -67,6 +67,7 @@
       Log::info("Start Send Link2Bot for Phone: " . $body);
       try {
         $request = new Request('POST', $url, $headers, $body);
+        sleep(10);
         $res = $client->sendAsync($request)->wait();
         if ($res->getStatusCode()) {
           $this->sale->update(['status' => 'ENVIADO']);

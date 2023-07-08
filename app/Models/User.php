@@ -1,16 +1,16 @@
 <?php
 
-  namespace App\Models;
+namespace App\Models;
 
-  // use Illuminate\Contracts\Auth\MustVerifyEmail;
-  use App\Models\Traits\UserACLTrait;
-  use Illuminate\Database\Eloquent\Factories\HasFactory;
-  use Illuminate\Foundation\Auth\User as Authenticatable;
-  use Illuminate\Notifications\Notifiable;
-  use Laravel\Sanctum\HasApiTokens;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Traits\UserACLTrait;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
-  class User extends Authenticatable
-  {
+class User extends Authenticatable
+{
     use HasApiTokens, HasFactory, Notifiable, UserACLTrait;
 
     /**
@@ -19,9 +19,11 @@
      * @var array<int, string>
      */
     protected $fillable = [
-      'name',
-      'email',
-      'password',
+        'name',
+        'email',
+        'is_active',
+        'tenant_id',
+        'password',
     ];
 
     /**
@@ -30,8 +32,8 @@
      * @var array<int, string>
      */
     protected $hidden = [
-      'password',
-      'remember_token',
+        'password',
+        'remember_token',
     ];
 
     /**
@@ -40,11 +42,11 @@
      * @var array<string, string>
      */
     protected $casts = [
-      'email_verified_at' => 'datetime',
+        'email_verified_at' => 'datetime',
     ];
 
     public function tenant()
     {
-      return $this->belongsTo(Tenant::class);
+        return $this->belongsTo(Tenant::class);
     }
-  }
+}

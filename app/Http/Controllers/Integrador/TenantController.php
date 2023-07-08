@@ -5,6 +5,10 @@
   use App\Http\Controllers\Controller;
   use App\Http\Requests\StoreUpdateTenant;
   use App\Models\Tenant;
+  use App\Models\User;
+  use Illuminate\Http\Request;
+  use Illuminate\Support\Facades\Hash;
+
 
   class TenantController extends Controller
   {
@@ -107,4 +111,77 @@
 
       return redirect()->route('tenants.index');
     }
+
+    public function listUsers($tenant)
+    {
+        $users = User::where('tenant_id',$tenant)->get();
+        $tenant = $this->repository->where('id', $tenant)->first();
+
+
+        return view('Integrador.Tenant.users.index',compact(['users','tenant']));
+    }
+
+    public function createUser($tenant)
+    {
+        return view('Integrador.Tenant.users.create',[
+            'tenant' => $tenant
+        ]);
+    }
+
+    public function saveUser(Request $request)
+    {
+        $data = $request->all();
+        $data['is_active'] = true;
+        $data['password'] = Hash::make($data['password']);
+        $user = new User();
+        $user->create($data);
+
+        return redirect()->route('tenant.users',$data['tenant_id']);
+
+    }
+    public function editUser($id)
+    {
+        $user = User::where('id', $id)->first();
+
+        if (!$user) {
+            return redirect()->back();
+        }
+        return view('Integrador.Tenant.users.edit', compact('user'));
+
+    }
+
+      public function showUser($id)
+      {
+          $user = User::where('id', $id)->first();
+
+          if (!$user) {
+              return redirect()->back();
+          }
+          return view('Integrador.Tenant.users.show', compact('user'));
+
+      }
+
+      public function updateUser(Request $request,$id)
+      {
+          $user = User::where('id', $id)->first();
+
+          if (!$user) {
+              return redirect()->back();
+          }
+
+          $user->update($request->all());
+          return view('Integrador.Tenant.users.show', compact('user'));
+
+      }
+
+      public function destroyUser($id)
+      {
+          $user = User::where('id', $id)->first();
+
+          if (!$user) {
+              return redirect()->back();
+          }
+          return view('Integrador.Tenant.users.show', compact('user'));
+
+      }
   }
