@@ -34,9 +34,13 @@
     public function handle(): void
     {
       $client = new Client();
-      $url = trim($this->campaings->endpoint_link2b);
+      $urlArray = explode(';',trim($this->campaings->endpoint_link2b));
+      $urlKey = rand(0,count($urlArray) - 1);
+      $url = $urlArray[$urlKey];
       $data_pedido = date('d-m-Y', strtotime($this->sale->data_pedido));
       $data_nf = date('d-m-Y', strtotime($this->sale->data_nf));
+
+
 
       $headers = [
         'Content-Type' => 'application/json'
@@ -65,9 +69,11 @@
                           ], JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE);
 
       Log::info("Start Send Link2Bot for Phone: " . $body);
+      Log::info("URL ALTERNATIVA :::::".$url);
+
       try {
         $request = new Request('POST', $url, $headers, $body);
-        sleep(10);
+
         $res = $client->sendAsync($request)->wait();
         if ($res->getStatusCode()) {
           $this->sale->update(['status' => 'ENVIADO']);
@@ -80,7 +86,7 @@
         Log::info("Erro ao enviar: " . json_encode($responseBodyAsString));
         Log::error($responseBodyAsString);
       }
-      Log::info("End Send Link2Bot");
+      Log::info("End Send Link2Bot =========================");
       $this->sale->update(['status' => 'ENVIADO']);
     }
   }
