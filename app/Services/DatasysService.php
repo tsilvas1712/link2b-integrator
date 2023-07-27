@@ -163,7 +163,7 @@
       foreach ($datasys as $data) {
         $data->campaign_id = $campaign_id;
         if ($data->gsm_portable != " ") {
-          $data->gsm = $data->gsm_portable;
+          $data->gsm = "55".$data->gsm_portable;
           $data->status = 'PORTABILIDADE';
         } else {
           $data->status = 'PENDENTE';

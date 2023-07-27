@@ -34,7 +34,7 @@
           $dataSave = [
             'tenant_id' => $data['tenant_id'],
             'id_venda' => $data['id'],
-            'gsm' => $data['GSM'],
+            'gsm' => "55".$data['GSM'],
             'gsm_portable' => is_array($data['GSMPortado']) ? ' ' : $data['GSMPortado'],
             'filial' => $data['Filial'],
             'data_pedido' => Carbon::parse($data['Data_x0020_pedido']),
