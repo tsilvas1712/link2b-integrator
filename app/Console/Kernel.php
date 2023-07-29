@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
   {
     // $schedule->command('inspire')->hourly();
     //$schedule->command('datasys:sync')->dailyAt('10:30');
-    $schedule->command('link2bot:send')->dailyAt('08:30');
+    //$schedule->command('link2bot:send')->dailyAt('08:30');
   }
 
   /**
