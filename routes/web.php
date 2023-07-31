@@ -43,6 +43,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('/tenants', TenantController::class);
 
     Route::resource('/campanhas', CampaignController::class);
+    Route::get('/campanhas/{id}/matience', [CampaignController::class, 'maitence'])->name('campanhas.matience');
+    Route::post('/campanhas/{id}/matience', [CampaignController::class, 'maitenceSync'])->name('campanhas.matience.sync');
+
     Route::resource('/mensagens', SaleController::class);
     Route::get('mensagens/{id}/campaign', [SaleController::class, 'indexCampaign'])->name('mensagens.campaing');
     Route::get('mensagens/{status}/status', [SaleController::class, 'indexStatus'])->name('mensagens.status');

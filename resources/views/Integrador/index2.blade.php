@@ -9,7 +9,6 @@
 @section('content')
     <div class="row">
         <div class="col-lg-3 col-6">
-
             <div class="small-box bg-indigo">
                 <div class="inner">
                     <h3>{{ $panels['campaigns'] }}</h3>
@@ -33,7 +32,7 @@
                 <div class="icon">
                     <i class="ion ion-ios-email"></i>
                 </div>
-                <a href="{{ route('campanhas.index') }}" class="small-box-footer">Mais Informações <i
+                <a href="{{ route('mensagens.index') }}" class="small-box-footer">Mais Informações <i
                         class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
@@ -48,7 +47,7 @@
                 <div class="icon">
                     <i class="ion ion-email-unread"></i>
                 </div>
-                <a href="#" class="small-box-footer">Mais Informações <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{route('mensagens.status', 'AGENDADO')}}" class="small-box-footer">Mais Informações <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
 
@@ -62,7 +61,7 @@
                 <div class="icon">
                     <i class="ion ion-ios-email-outline"></i>
                 </div>
-                <a href="{{ route('mensagens.index') }}" class="small-box-footer">Mais Informações <i
+                <a href="{{route('mensagens.status', 'ENVIADO')}}" class="small-box-footer">Mais Informações <i
                         class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
@@ -71,7 +70,7 @@
     <h1>Campanhas</h1>
     <div class="row">
         @foreach ($campaigns as $campaign)
-            <div class="col-lg-2 col-6 ">
+            <div class="col-lg-4 col-6 ">
                 <a href="{{ route('mensagens.campaing', $campaign->id) }}">
                     <div class="small-box bg-lightblue p-4">
                         {{ $campaign->name }}
@@ -84,30 +83,30 @@
 
     <h1>Mensagens</h1>
     <div class="row">
-        <div class="col-lg-2 col-6 ">
+        <div class="col-lg-3 col-6 ">
             <a href="{{ route('mensagens.status', 'ENVIADO') }}">
-                <div class="small-box bg-success p-4">
+                <div class="d-flex justify-content-center small-box wid bg-success p-4">
                     <h2>Enviadas</h2>
                 </div>
             </a>
         </div>
-        <div class="col-lg-2 col-6 ">
+        <div class="col-lg-3 col-6 ">
             <a href="{{ route('mensagens.status', 'PENDENTE') }}">
-                <div class="small-box bg-primary p-4">
+                <div class="d-flex justify-content-center small-box bg-primary p-4">
                     <h2>Pendentes</h2>
                 </div>
             </a>
         </div>
-        <div class="col-lg-2 col-6 ">
+        <div class="col-lg-3 col-6 ">
             <a href="{{ route('mensagens.status', 'AGENDADO') }}">
-                <div class="small-box bg-info p-4">
+                <div class="d-flex justify-content-center small-box bg-info p-4">
                     <h2>Agendadas</h2>
                 </div>
             </a>
         </div>
-        <div class="col-lg-2 col-6 ">
+        <div class="col-lg-3 col-6 ">
             <a href="{{ route('mensagens.status', 'ERROR') }}">
-                <div class="small-box bg-danger p-4">
+                <div class="d-flex justify-content-center small-box bg-danger p-4">
                     <h2>Erros</h2>
                 </div>
             </a>

@@ -45,7 +45,9 @@
                                 <a class="btn btn-warning" href="{{ route('campanhas.show', $campaign->id) }}"
                                     title="Ver Registro"><i class="fa fa-eye"></i></a>
                                 <a class="btn btn-primary" href="{{ route('campanhas.edit', $campaign->id) }}"
-                                    title="Editar Registro"><i class="fa fa-cogs"></i></a>
+                                    title="Editar Registro"><i class="fa fa-pen"></i></a>
+                                <a class="btn btn-secondary" href="{{ route('campanhas.matience', $campaign->id) }}"
+                                   title="Manutenção"><i class="fa fa-cogs"></i></a>
 
                             </td>
                         </tr>
