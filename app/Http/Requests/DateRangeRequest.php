@@ -22,18 +22,7 @@ class DateRangeRequest extends FormRequest
      */
     public function rules(): array
     {
-        $this->request->get('data_inicial') = Carbon::parse($this->request->get('data_inicial'))->format('d/m/Y');
 
-        $rules = [
-            'data_inicial'  => 'date_format:d-m-Y|after:today'
-        ];
-
-        if ($this->request->has('data_inicial') && $this->request->get('data_inicial') != $this->request->get('data_final')) {
-            $rules['data_final'] = 'date_format:d-m-Y|after:data_inicial';
-        } else {
-            $rules['data_final'] = 'date_format:d-m-Y|after:today';
-        }
-
-        return $rules;
+        return [];
     }
 }
