@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
   protected function schedule(Schedule $schedule): void
   {
     // $schedule->command('inspire')->hourly();
-    $schedule->command('datasys:sync')->dailyAt('14:30');
+    $schedule->command('datasys:sync')->dailyAt('08:00');
     $schedule->command('link2bot:send')->dailyAt('08:30');
   }
 
