@@ -40,8 +40,6 @@
       $data_pedido = date('d-m-Y', strtotime($this->sale->data_pedido));
       $data_nf = date('d-m-Y', strtotime($this->sale->data_nf));
 
-
-
       $headers = [
         'Content-Type' => 'application/json'
       ];

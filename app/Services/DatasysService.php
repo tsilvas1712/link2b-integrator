@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\History;
 use App\Repository\DatasysRepository;
 use App\Repository\SaleRepository;
 use Illuminate\Support\Carbon;
@@ -162,6 +163,9 @@ class DatasysService
     public function sendDatasys($tenant_id, $campaign_id, $modalidade)
     {
         $datasys = $this->datasysRepository->findDatasys($tenant_id, $modalidade);
+        $history = new History();
+
+        $count = 0;
 
         foreach ($datasys as $data) {
             $data->campaign_id = $campaign_id;
@@ -173,7 +177,14 @@ class DatasysService
             }
 
             $this->repository->saveSend($data);
+            $count ++;
         }
+
+        $history->create([
+            'campaign_id' => $campaign_id,
+            'counter_register' => $count,
+            'data' => Carbon::now('America/Sao_Paulo')]
+        );
 
         return count($datasys) . " Registros Encontrados !!!";
     }

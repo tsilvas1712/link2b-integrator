@@ -29,4 +29,8 @@
     {
       return $this->belongsToMany(Sale::class);
     }
+
+    public function histories(){
+        return $this->hasMany(History::class);
+    }
   }

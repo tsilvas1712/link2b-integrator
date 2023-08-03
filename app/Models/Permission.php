@@ -9,6 +9,7 @@
   {
     use HasFactory;
 
+    protected $table = 'permissions';
     protected $fillable = ['name', 'description'];
 
     public function profiles()
