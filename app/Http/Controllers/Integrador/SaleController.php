@@ -33,7 +33,7 @@
         ->leftJoin('campaigns', 'sales.campaign_id', '=', 'campaigns.id')
         ->leftJoin('tenants', 'campaigns.tenant_id', '=', 'tenants.id')
         ->where('tenants.id', $user->tenant_id)
-        ->orderBy('sales.createD_at', 'DESC')
+        ->orderBy('sales.data_pedido', 'DESC')
         ->paginate(10);
 
 
