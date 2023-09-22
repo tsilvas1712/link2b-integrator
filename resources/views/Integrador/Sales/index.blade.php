@@ -16,8 +16,8 @@
                 <thead>
                     <tr>
                         <th>id</th>
-                        <th>Campanha</th>
                         <th>Telefone</th>
+                        <th>Campanha</th>
                         <th>Filial</th>
                         <th>Data Pedido</th>
                         <th>Tipo Pedido</th>
@@ -80,6 +80,13 @@
                                         </span>
                                     </td>
                                 @break
+                                @case('REPETIDO')
+                                    <td>
+                                        <span class="badge badge-navy bg-purple">
+                                            Repetido
+                                        </span>
+                                    </td>
+                                    @break
 
                                 @default
                             @endswitch

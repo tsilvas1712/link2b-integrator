@@ -83,31 +83,38 @@
 
     <h1>Mensagens</h1>
     <div class="row">
-        <div class="col-lg-3 col-6 ">
+        <div class="col-lg-2 col-6 ">
             <a href="{{ route('mensagens.status', 'ENVIADO') }}">
                 <div class="d-flex justify-content-center small-box wid bg-success p-4">
                     <h2>Enviadas</h2>
                 </div>
             </a>
         </div>
-        <div class="col-lg-3 col-6 ">
+        <div class="col-lg-2 col-6 ">
             <a href="{{ route('mensagens.status', 'PENDENTE') }}">
                 <div class="d-flex justify-content-center small-box bg-primary p-4">
                     <h2>Pendentes</h2>
                 </div>
             </a>
         </div>
-        <div class="col-lg-3 col-6 ">
+        <div class="col-lg-2 col-6 ">
             <a href="{{ route('mensagens.status', 'AGENDADO') }}">
                 <div class="d-flex justify-content-center small-box bg-info p-4">
                     <h2>Agendadas</h2>
                 </div>
             </a>
         </div>
-        <div class="col-lg-3 col-6 ">
+        <div class="col-lg-2 col-6 ">
             <a href="{{ route('mensagens.status', 'ERROR') }}">
                 <div class="d-flex justify-content-center small-box bg-danger p-4">
                     <h2>Erros</h2>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-2 col-6 ">
+            <a href="{{ route('mensagens.status', 'REPETIDO') }}">
+                <div class="d-flex justify-content-center small-box bg-purple p-4">
+                    <h2>Repetidos</h2>
                 </div>
             </a>
         </div>
