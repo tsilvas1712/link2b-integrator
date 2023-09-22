@@ -43,7 +43,24 @@
 
         foreach ($sales as $sale) {
           $count++;
-          $link2BService->sendWhats($sale, $campaign);
+
+          $multiSales = Sale::where('gsm',$sale['gsm'])->where('id_venda',$sale['id_venda'])->get();
+
+          if(count($multiSales) >1){
+              $first = true;
+              foreach ($multiSales as $row){
+                  if($first){
+                      $link2BService->sendWhats($row, $campaign);
+                      $first = false;
+                  }else{
+                    $row->update(['status' =>'REPETIDO']);
+                  }
+              }
+          }else{
+              $link2BService->sendWhats($sale, $campaign);
+          }
+
+
         }
       }
 
