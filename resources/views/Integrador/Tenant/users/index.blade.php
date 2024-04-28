@@ -3,7 +3,8 @@
 @section('title_postfix', '| Clientes')
 
 @section('content_header')
-    <h1>{{ $tenant->tenant_name }} <a href="{{ route('tenant.users.create',$tenant->id) }}" class="btn btn-success"> <i class="fa fa-plus"></i> Usuário</a></h1>
+    <h1>{{ $tenant->tenant_name }} <a href="{{ route('tenant.users.create', $tenant->id) }}" class="btn btn-success"> <i
+                class="fa fa-plus"></i> Usuário</a></h1>
 @stop
 
 @section('content')
@@ -45,6 +46,8 @@
                                     title="Ver Registro"><i class="fa fa-eye"></i></a>
                                 <a class="btn btn-primary" href="{{ route('tenant.users.edit', $user->id) }}"
                                     title="Editar Registro"><i class="fa fa-cogs"></i></a>
+                                <a class="btn btn-info" href="{{ route('tenant.users.token', $user->id) }}"
+                                    title="Gerar Token"><i class="fa fa-lock"></i></a>
 
 
                             </td>

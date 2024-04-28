@@ -1,6 +1,7 @@
 <?php
 
-  use App\Models\Campaign;
+use App\Http\Controllers\API\DataSyncController;
+use App\Models\Campaign;
   use App\Models\Datasys;
   use App\Models\Sale;
   use App\Repository\DatasysRepository;
@@ -46,3 +47,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('/receivedata',[DataSyncController::class,'receiveData'])
+->middleware('auth:sanctum')
+->name('api.receivedata');

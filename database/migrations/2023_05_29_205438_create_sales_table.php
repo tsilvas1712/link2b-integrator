@@ -35,7 +35,7 @@ return new class extends Migration
       $table->double('total_item', 10, 2)->nullable();
       $table->string('nome_vendedor')->nullable();
       $table->string('nome_cliente')->nullable();
-      $table->enum('status', ['PENDENTE', 'PORTABILIDADE', 'AGENDADO', 'ENVIADO', 'ERROR']);
+      $table->enum('status', ['PENDENTE', 'PORTABILIDADE', 'AGENDADO', 'ENVIADO', 'ERROR', 'REPETIDO']);
       $table->timestamps();
     });
   }

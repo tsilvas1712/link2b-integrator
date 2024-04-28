@@ -34,4 +34,10 @@
       'nome_vendedor',
       'nome_cliente'
     ];
+
+
+    public function tenant()
+    {
+      return $this->belongsTo(Tenant::class);
+    }
   }

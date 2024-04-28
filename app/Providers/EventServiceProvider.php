@@ -2,7 +2,9 @@
 
   namespace App\Providers;
 
-  use Illuminate\Auth\Events\Registered;
+use App\Models\Datasys;
+use App\Observers\DatasysObserver;
+use Illuminate\Auth\Events\Registered;
   use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
   use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -24,7 +26,7 @@
      */
     public function boot(): void
     {
-      //
+      Datasys::observe(DatasysObserver::class);
     }
 
     /**

@@ -38,6 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::post('tenants/users/save', [TenantController::class, 'saveUser'])->name('tenant.users.save');
     Route::get('tenants/users/{id}/edit', [TenantController::class, 'editUser'])->name('tenant.users.edit');
     Route::get('tenants/users/{id}/show', [TenantController::class, 'showUser'])->name('tenant.users.show');
+    Route::get('tenants/users/{id}/token', [TenantController::class, 'gerarToken'])->name('tenant.users.token');
     Route::put('tenants/users/{id}/update', [TenantController::class, 'updateUser'])->name('tenant.users.update');
     Route::delete('tenants/users/{id}/destroy', [TenantController::class, 'destroyUser'])->name('tenants.users.destroy');
     Route::resource('/tenants', TenantController::class);

@@ -37,4 +37,9 @@
     {
       return $this->belongsToMany(Campaign::class);
     }
+
+    public function datasys()
+    {
+      return $this->hasMany(Datasys::class);
+    }
   }

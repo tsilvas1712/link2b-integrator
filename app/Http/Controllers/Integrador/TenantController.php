@@ -184,4 +184,13 @@
           return view('Integrador.Tenant.users.show', compact('user'));
 
       }
+
+      public function gerarToken($id)
+      {
+        $user = User::where('id', $id)->first();
+        $token = $user->createToken('access_token')->plainTextToken;
+
+        return view('Integrador.Tenant.users.token', compact(['user','token']));
+
+      }
   }
