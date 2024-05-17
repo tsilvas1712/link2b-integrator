@@ -45,11 +45,13 @@
                                 <a class="btn btn-warning" href="{{ route('tenants.show', $tenant->id) }}"
                                     title="Ver Registro"><i class="fa fa-eye"></i></a>
                                 <a class="btn btn-success" href="{{ route('tenant.users', $tenant->id) }}"
-                                   title="Criar Usuário"><i class="fa fa-users"></i></a>
+                                    title="Criar Usuário"><i class="fa fa-users"></i></a>
                                 <a class="btn btn-primary" href="{{ route('tenants.edit', $tenant->id) }}"
                                     title="Editar Registro"><i class="fa fa-cogs"></i></a>
                                 <a class="btn btn-info" href="{{ route('tenants.profiles', $tenant->id) }}"
                                     title="Selecionar Perfil"><i class="fa fa-address-book"></i></a>
+                                <a class="btn btn-info" href="{{ route('tenant.token', $tenant->id) }}"
+                                    title="Gerar Token"><i class="fa fa-key"></i></a>
 
                             </td>
                         </tr>

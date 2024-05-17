@@ -46,10 +46,6 @@
                                     title="Ver Registro"><i class="fa fa-eye"></i></a>
                                 <a class="btn btn-primary" href="{{ route('tenant.users.edit', $user->id) }}"
                                     title="Editar Registro"><i class="fa fa-cogs"></i></a>
-                                <a class="btn btn-info" href="{{ route('tenant.users.token', $user->id) }}"
-                                    title="Gerar Token"><i class="fa fa-lock"></i></a>
-
-
                             </td>
                         </tr>
                     @endforeach

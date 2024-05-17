@@ -4,8 +4,8 @@
 
 @section('content_header')
     <div class="row justify-content-between m-2">
-        <h1>{{ $user->name }} </h1>
-        @if ($user->is_active)
+        <h1>{{ $tenant->tenant_name }} </h1>
+        @if ($tenant->active)
             <span class="bg-gradient-green p-2 rounded-lg text-md font-weight-bold">Ativo</span>
         @else
             <span class="bg-gradient-red p-2 rounded-lg text-md font-weight-bold">Parado</span>
@@ -16,10 +16,13 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h1>Gerar Token do Usuário <span class="text-info">{{ $user->name }}</span></h1>
+            <h1>Token</h1>
         </div>
         <div class="card-body">
-            <h1 class="fs-2">{{ $token }}</h1>
+            <h1 class="fs-2 text-primary">{{ $tenant->token }}</h1>
+        </div>
+        <div class="card-footer">
+            <a href="{{ route('tenant.create.token', $tenant->id) }}" class="btn btn-primary">Gerar Novo Token</a>
         </div>
     </div>
 @stop

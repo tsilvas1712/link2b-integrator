@@ -39,7 +39,7 @@ class Link2BotCommand extends Command
     $count = 0;
 
     foreach ($campaigns as $campaign) {
-      $sales = Sale::where('status', 'PENDENTE')->orWhere('status', 'PORTABILIDADE')->get();
+      $sales = Sale::where('campaign_id', $campaign->id)->where('status', 'PENDENTE')->orWhere('status', 'PORTABILIDADE')->get();
 
       foreach ($sales as $sale) {
         $count++;

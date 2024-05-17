@@ -28,7 +28,6 @@ class DatasysRepository
   {
     $datasysExists = $this->entity->where('id_venda', $data['id'])->first();
 
-
     if ($datasysExists === null) {
       try {
         $dataSave = [
@@ -56,11 +55,12 @@ class DatasysRepository
           'nome_cliente' => $data['Nome_x0020_Cliente'],
         ];
 
-
+        Log::info('Dados Salvos ID Pedido ' . $data['id']);
         $this->entity->create($dataSave);
       } catch (\Exception $e) {
+        throw $e;
         Log::error($e->getMessage());
-        Log::info('Dados com Erro ' . $data['DT_x0020_Compra']);
+        Log::info('Dados com Erro ' . $data['id']);
       }
     }
   }
