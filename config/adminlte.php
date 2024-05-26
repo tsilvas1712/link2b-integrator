@@ -339,6 +339,12 @@ return [
       'icon' => 'fas fa-fw fa-comments-dollar',
       'can' => 'Mensagens',
     ],
+    [
+      'text' => 'datasys',
+      'url' => '/datasys',
+      'icon' => 'fas fa-fw fa-database',
+      'can' => 'Datasys',
+    ],
 
   ],
 

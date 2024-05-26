@@ -80,7 +80,8 @@ Route::middleware('auth')->group(function () {
   Route::resource('/permissions', PermissionController::class);
 
   Route::prefix('/datasys')->group(function () {
-    Route::get('', [DatasysController::class, 'index']);
+    Route::get('', [DatasysController::class, 'index'])->name('datasys.index');
+    Route::post('', [DatasysController::class, 'uploadCsv'])->name('datasys.upload');
   });
 });
 

@@ -9,54 +9,71 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            #filtros
+            <h3 class="card-title">Inportar Dados Datasys</h3><br>
+            <div class="card-body">
+                <form class="d-flex flex-column p-2 d-grid gap-3" action="{{ route('datasys.upload') }}" method="POST"
+                    enctype="multipart/form-data">
+                    @csrf
+                    @if (session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+            </div>
+            <div class="fields">
+                <div class="input-group mb-3">
+                    <input type="file" class="form-control" id="import_csv" name="import_csv" accept=".csv">
+                    <label class="input-group-text" for="import_csv">Upload</label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success">Import CSV</button>
+            </form>
         </div>
-        <div class="card-body">
-            <table class="table table-condensed">
-                <thead>
+    </div>
+    <div class="card-body">
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Filial</th>
+                    <th>Data Pedido</th>
+                    <th>Tipo Pedido</th>
+                    <th>Modalidade</th>
+                    <th>Qtde</th>
+                    <th>Valor</th>
+                    <th>Vendedor</th>
+                    <th>Cliente</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($datasys as $row)
                     <tr>
-                        <th>id</th>
-                        <th>Area</th>
-                        <th>Filial</th>
-                        <th>Data Pedido</th>
-                        <th>Tipo Pedido</th>
-                        <th>Qtde</th>
-                        <th>Valor</th>
-                        <th>Vendedor</th>
-                        <th>Cliente</th>
-                        <th></th>
+                        <td>{{ $row['id_venda'] }}</td>
+                        <td>{{ $row['filial'] }}</td>
+                        <td>{{ date('d/m/Y H:i:s', strtotime($row['data_pedido'])) }}</td>
+                        <td>{{ $row['tipo_pedido'] }}</td>
+                        <td>{{ $row['modalidade'] }}</td>
+                        <td>{{ $row['qantidade'] }}</td>
+                        <td>R$ {{ number_format($row['valor_tabela'], 2, ',', '.') }}</td>
+                        <td>{{ $row['nome_vendedor'] }}</td>
+                        <td>{{ $row['nome_vendedor'] }}</td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach ($datasys as $row)
-                        <tr>
-                            <td>{{ $row['id'] }}</td>
-                            <td>{{ $row['Area'] }}</td>
-                            <td>{{ $row['Filial'] }}</td>
-                            <td>{{ date('d/m/Y H:i:s', strtotime($row['Data_x0020_pedido'])) }}</td>
-                            <td>{{ $row['Modalidade_x0020_Venda'] }}</td>
-                            <td>{{ $row['Qtde'] }}</td>
-                            <td>R$ {{ number_format($row['Valor_x0020_Tabela'], 2, ',', '.') }}</td>
-                            <td>{{ $row['Nome_x0020_Vendedor'] }}</td>
-                            <td>{{ $row['Nome_x0020_Cliente'] }}</td>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer">
 
 
-                            <td>
-                                <a class="btn btn-warning" href="#" title="Ver Registro"><i class="fa fa-eye"></i></a>
-                                <a class="btn btn-primary" title="Editar Registro"><i class="fa fa-cogs"></i></a>
-                                <a class="btn btn-danger" title="Deletar Registro"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-        <div class="card-footer">
+    </div>
+@stop
 
-
-        </div>
-    @stop
-
-    @section('css')
-        <link rel="stylesheet" href="/css/admin_custom.css">
-    @stop
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop
