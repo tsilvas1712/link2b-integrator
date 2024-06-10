@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7f9ab2353b7e2cc71cfca311159cd266",
+    "content-hash": "26e207b19872f6b8503e67575f3d3137",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -474,6 +474,77 @@
                 }
             ],
             "time": "2023-01-14T14:17:03+00:00"
+        },
+        {
+            "name": "flowgistics/laravel-xml",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Flowgistics/laravel-xml.git",
+                "reference": "811f985447954b064ca7e6a0fc05b1a5cc9aa5f6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Flowgistics/laravel-xml/zipball/811f985447954b064ca7e6a0fc05b1a5cc9aa5f6",
+                "reference": "811f985447954b064ca7e6a0fc05b1a5cc9aa5f6",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "ext-json": "*",
+                "ext-simplexml": "*",
+                "illuminate/support": ">=8.47",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.15",
+                "phpunit/phpunit": "^9.3",
+                "spatie/phpunit-snapshot-assertions": "^4.0",
+                "vimeo/psalm": "^4.8"
+            },
+            "suggest": {
+                "illuminate/view": "Required to use the load view feature.",
+                "laravel/laravel": "Required to use the load view feature."
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Flowgistics\\XML\\XMLServiceProvider"
+                    ],
+                    "aliases": {
+                        "XML": "Flowgistics\\XML\\XMLFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Flowgistics\\XML\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Flowgistics",
+                    "email": "support@flowgistics.nl",
+                    "homepage": "https://flowgistics.nl/",
+                    "role": "Developer"
+                }
+            ],
+            "homepage": "https://github.com/Flowgistics/laravel-xml",
+            "keywords": [
+                "laravel",
+                "reader",
+                "xml"
+            ],
+            "support": {
+                "issues": "https://github.com/Flowgistics/laravel-xml/issues",
+                "source": "https://github.com/Flowgistics/laravel-xml/tree/1.1.1"
+            },
+            "time": "2023-05-15T07:24:26+00:00"
         },
         {
             "name": "fruitcake/php-cors",

@@ -6,7 +6,9 @@ use App\Models\History;
 use App\Repository\DatasysRepository;
 use App\Repository\SaleRepository;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
 use SimpleXMLElement;
+use Flowgistics\XML\XML;
 
 class DatasysService
 {
@@ -137,25 +139,68 @@ class DatasysService
       ),
     ));
     $response = curl_exec($curl);
+
     $res = preg_replace("/(<\/?)(\w+):([^>]*>)/", "$1$2$3", $response);
 
     curl_close($curl);
-    $xml = new SimpleXMLElement($res);
-    $body = $xml->xpath('//soapBody')[0];
-    $array = json_decode(json_encode((array)$body), true);
+    if ($res === '') {
+      return "Erro ao Conectar com a API";
+    }
+    try {
+      $reader = XML::import($res)->toJson();
+    } catch (\Exception $e) {
+      Log::error($e->getMessage());
+      Log::error('Erro ao Conectar com a API');
+      return "Erro ao Conectar com a API";
+    }
 
-    $responseArray = $array['BaixarVendasResponse']['BaixarVendasResult']['NewDataSet']['Table'];
+    $data = json_decode($reader, true)['soapBody']['BaixarVendasResponse']['BaixarVendasResult']['NewDataSet']['Table'];
 
+    $dados = [];
     $count = 0;
+    foreach ($data as $row) {
 
-    foreach ($responseArray as $row) {
-      $row['tenant_id'] = $tenant_id;
+      $dataSave = [];
+      if (!isset($row['Modalidade_x0020_Venda'])) {
+        $row['Modalidade_x0020_Venda'] = null;
+      }
       if (!is_array($row['GSM']) && $row['Tipo_x0020_Pedido'] == 'Venda') {
+        $dataSave = [
+          'tenant_id' => $tenant_id,
+          'id_venda' => $row['id'],
+          'gsm' => "55" . $row['GSM'],
+          'gsm_portable' => is_array($row['GSMPortado']) ? null : $row['GSMPortado'],
+          'filial' => $row['Filial'],
+          'data_pedido' => Carbon::parse($row['Data_x0020_pedido']),
+          'nf_compra' => is_array($row['NF_x0020_Compra']) ? ' ' : $row['NF_x0020_Compra'],
+          'tipo_pedido' => $row['Tipo_x0020_Pedido'],
+          'modalidade' =>  $row['Modalidade_x0020_Venda'],
+          'nota_fiscal' => $row['Nota_x0020_Fiscal'] ?? null,
+          'data_nf' => date('Y-m-d H:i:s', strtotime($row['DT_x0020_Compra'])),
+          'descricao' => $row['Descricao'] ?? null,
+          'fabricante' => $row['Fabricante'] ?? null,
+          'serial' => is_array($row['Serial']) ? ' ' : $row['Serial'],
+          'qantidade' => $row['Qtde'],
+          'valor_tabela' => $row['Valor_x0020_Tabela'],
+          'valor_plano' => $row['Valor_x0020_Plano'],
+          'valor_caixa' => $row['Valor_x0020_Caixa'] ?? null,
+          'desconto' => $row['Descontos'],
+          'total_item' => $row['Total_x0020_Item'],
+          'nome_vendedor' => is_array($row['Nome_x0020_Vendedor']) ? null : $row['Nome_x0020_Vendedor'],
+          'nome_cliente' => is_array($row['Nome_x0020_Cliente']) ? null : $row['Nome_x0020_Cliente'],
+        ];
+      }
+      //$this->datasysRepository->saveDatasys($row);
+      if ($dataSave != []) {
 
-        $this->datasysRepository->saveDatasys($row);
+        $dados[] = $dataSave;
         $count++;
       }
     }
+
+    $this->datasysRepository->saveDatasys($dados);
+
+
 
     return $count . " Registros Gravados com Sucesso !!!";
   }
@@ -165,7 +210,7 @@ class DatasysService
     $datasys = $this->datasysRepository->findDatasys($tenant_id, $modalidade);
     $history = new History();
 
-
+    Log::info('Enviando Dados Datasys');
 
     $count = 0;
 
@@ -186,10 +231,15 @@ class DatasysService
       [
         'campaign_id' => $campaign_id,
         'counter_register' => $count,
-        'data' => Carbon::now('America/Sao_Paulo')
+
       ]
     );
 
     return count($datasys) . " Registros Encontrados !!!";
+  }
+
+  public function cleanDatasys($tenant_id)
+  {
+    $this->datasysRepository->delete($tenant_id);
   }
 }

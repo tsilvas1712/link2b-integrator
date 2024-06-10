@@ -47,6 +47,7 @@ class DatasysSyncCommand extends Command
       if ($campaign->type == 'DataSys') {
         $dataService->syncDatasys($datasysUrl, $datasysToken, $tenant_id);
         $dataService->sendDatasys($tenant_id, $campaign->id, $campaign->sales_modalities);
+        $dataService->cleanDatasys($tenant_id);
       }
 
       if ($campaign->type == 'API') {

@@ -26,7 +26,7 @@ use Illuminate\Auth\Events\Registered;
      */
     public function boot(): void
     {
-      Datasys::observe(DatasysObserver::class);
+      //Datasys::observe(DatasysObserver::class);
     }
 
     /**

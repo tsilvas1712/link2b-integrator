@@ -24,6 +24,7 @@
      */
     public function boot(): void
     {
+      
       $permissions = Permission::all();
 
       foreach ($permissions as $permission) {
@@ -37,5 +38,6 @@
           return true;
         }
       });
+      
     }
   }

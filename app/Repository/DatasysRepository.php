@@ -4,7 +4,9 @@ namespace App\Repository;
 
 use App\Models\Datasys;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\Rules\Exists;
 
 /**
  * class DatasysRepository
@@ -26,41 +28,15 @@ class DatasysRepository
 
   public function saveDatasys(array $data)
   {
-    $datasysExists = $this->entity->where('id_venda', $data['id'])->first();
-
-    if ($datasysExists === null) {
+    Log::info('Salvando Dados Datasys');
+    foreach ($data as $row) {
       try {
-        $dataSave = [
-          'tenant_id' => $data['tenant_id'],
-          'id_venda' => $data['id'],
-          'gsm' => "55" . $data['GSM'],
-          'gsm_portable' => is_array($data['GSMPortado']) ? ' ' : $data['GSMPortado'],
-          'filial' => $data['Filial'],
-          'data_pedido' => Carbon::parse($data['Data_x0020_pedido']),
-          'nf_compra' => is_array($data['NF_x0020_Compra']) ? ' ' : $data['NF_x0020_Compra'],
-          'tipo_pedido' => $data['Tipo_x0020_Pedido'],
-          'modalidade' => $data['Modalidade_x0020_Venda'],
-          'nota_fiscal' => $data['Nota_x0020_Fiscal'] ?? null,
-          'data_nf' => date('Y-m-d H:i:s', strtotime($data['DT_x0020_Compra'])),
-          'descricao' => $data['Descricao'] ?? null,
-          'fabricante' => $data['Fabricante'] ?? null,
-          'serial' => is_array($data['Serial']) ? ' ' : $data['Serial'],
-          'qantidade' => $data['Qtde'],
-          'valor_tabela' => $data['Valor_x0020_Tabela'],
-          'valor_plano' => $data['Valor_x0020_Plano'],
-          'valor_caixa' => $data['Valor_x0020_Caixa'] ?? null,
-          'desconto' => $data['Descontos'],
-          'total_item' => $data['Total_x0020_Item'],
-          'nome_vendedor' => $data['Nome_x0020_Vendedor'],
-          'nome_cliente' => $data['Nome_x0020_Cliente'],
-        ];
-
-        Log::info('Dados Salvos ID Pedido ' . $data['id']);
-        $this->entity->create($dataSave);
-      } catch (\Exception $e) {
-        throw $e;
+        if ($this->entity->where('id_venda', $row['id_venda'])->where('modalidade', $row['modalidade'])->count() == 0) {
+          $this->entity->create($row);
+        }
+      } catch (Exception $e) {
         Log::error($e->getMessage());
-        Log::info('Dados com Erro ' . $data['id']);
+        Log::error('Dados com Erro ' . json_encode($data));
       }
     }
   }
@@ -75,5 +51,10 @@ class DatasysRepository
       ->get();
 
     return $datasys;
+  }
+
+  public function delete($tenant_id)
+  {
+    $this->entity->where('tenant_id', $tenant_id)->delete();
   }
 }
