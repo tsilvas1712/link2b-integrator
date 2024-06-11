@@ -46,6 +46,12 @@ class DatasysRepository
     $pesquisa = $modalidade;
     $array = explode(";", $pesquisa);
 
+    if ($modalidade == null) {
+      $datasys = $this->entity->where('tenant_id', $tenant_id)
+        ->get();
+      return $datasys;
+    }
+
     $datasys = $this->entity->where('tenant_id', $tenant_id)
       ->whereIn('modalidade', $array)
       ->get();

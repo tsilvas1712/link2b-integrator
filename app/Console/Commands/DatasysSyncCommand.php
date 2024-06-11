@@ -51,6 +51,7 @@ class DatasysSyncCommand extends Command
       }
 
       if ($campaign->type == 'API') {
+        dd($campaign);
         $dataService->sendDatasys($tenant_id, $campaign->id, $campaign->sales_modalities);
       }
     }
