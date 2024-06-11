@@ -107,7 +107,7 @@ return [
      */
 
   'preloader' => [
-    'enabled' => true,
+    'enabled' => false,
     'img' => [
       'path' => 'img/logos/Logo.png',
       'alt' => 'Link2B Preloader Image',
