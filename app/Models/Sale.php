@@ -34,7 +34,8 @@
       'total_item',
       'nome_vendedor',
       'nome_cliente',
-      'status'
+      'status',
+      'plano_adicional'
     ];
 
 

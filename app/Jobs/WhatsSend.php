@@ -45,7 +45,7 @@ class WhatsSend implements ShouldQueue
       'Content-Type' => 'application/json'
     ];
     $body = json_encode([
-      "phone" => '55' . $this->sale->gsm,
+      "phone" => $this->validateGsm($this->sale->gsm),
       "nome_cliente" => $this->sale->nome_cliente,
       "gsm_portable" => $this->sale->gsm_portable,
       "data_pedido" => $data_pedido,
@@ -58,6 +58,7 @@ class WhatsSend implements ShouldQueue
       "fabricante" => $this->sale->fabricante,
       "serial" => $this->sale->serial,
       "quantidade" => $this->sale->quantidade,
+      "plano_adicional" => $this->sale->plano_adicional,
       "valor_tabela" => 'R$ ' . number_format($this->sale->valor_tabela, 2, ',', '.'),
       "valor_plano" => 'R$ ' . number_format($this->sale->valor_plano, 2, ',', '.'),
       "valor_caixa" => 'R$ ' . number_format($this->sale->valor_caixa, 2, ',', '.'),
@@ -88,5 +89,15 @@ class WhatsSend implements ShouldQueue
     }
     Log::info("End Send Link2Bot =========================");
     $this->sale->update(['status' => 'ENVIADO']);
+  }
+
+  public function validateGsm($gsm): string
+  {
+    $gsm = str_replace(['(', ')', '-', ' '], '', $gsm);
+    $gsm = str_replace('+', '', $gsm);
+    if(strlen($gsm) > 11){
+      return $gsm;
+    }
+    return '55'.$gsm;
   }
 }

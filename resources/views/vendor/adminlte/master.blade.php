@@ -28,7 +28,6 @@
         <link rel="stylesheet" href="{{ asset('vendor/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
         <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.min.css') }}">
 
-
         @if(config('adminlte.google_fonts.allowed', true))
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
         @endif
@@ -41,7 +40,7 @@
 
     {{-- Livewire Styles --}}
     @if(config('adminlte.livewire'))
-        @if(app()->version() >= 7)
+        @if(intval(app()->version()) >= 7)
             @livewireStyles
         @else
             <livewire:styles />
@@ -50,8 +49,6 @@
 
     {{-- Custom Stylesheets (post AdminLTE) --}}
     @yield('adminlte_css')
-
-    <link rel="stylesheet" href="{{ asset('css/link2b.css') }}">
 
     {{-- Favicon --}}
     @if(config('adminlte.use_ico_only'))
@@ -98,7 +95,7 @@
 
     {{-- Livewire Script --}}
     @if(config('adminlte.livewire'))
-        @if(app()->version() >= 7)
+        @if(intval(app()->version()) >= 7)
             @livewireScripts
         @else
             <livewire:scripts />

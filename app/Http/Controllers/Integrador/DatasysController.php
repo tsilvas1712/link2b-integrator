@@ -49,12 +49,14 @@ class DatasysController extends Controller
       "serial",
       "qantidade",
       "valor_tabela",
+      "plano_adicional",
       "valor_plano",
       "valor_caixa",
       "desconto",
       "total_item",
       "nome_vendedor",
-      "nome_cliente"
+      "nome_cliente",
+      
     ];
     //dump(explode(';', $dataFile[0][0]));
     //dd(in_array($headers[1],   $dataFile[0]));

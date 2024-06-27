@@ -32,7 +32,8 @@
       'desconto',
       'total_item',
       'nome_vendedor',
-      'nome_cliente'
+      'nome_cliente',
+      'plano_adicional'
     ];
 
 

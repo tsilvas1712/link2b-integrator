@@ -168,7 +168,7 @@ class DatasysService
         $dataSave = [
           'tenant_id' => $tenant_id,
           'id_venda' => $row['id'],
-          'gsm' => "55" . $row['GSM'],
+          'gsm' => $row['GSM'],
           'gsm_portable' => is_array($row['GSMPortado']) ? null : $row['GSMPortado'],
           'filial' => $row['Filial'],
           'data_pedido' => Carbon::parse($row['Data_x0020_pedido']),
@@ -209,6 +209,7 @@ class DatasysService
   {
     $datasys = $this->datasysRepository->findDatasys($tenant_id, $modalidade);
     $history = new History();
+ 
 
     Log::info('Enviando Dados Datasys');
 
@@ -216,8 +217,8 @@ class DatasysService
 
     foreach ($datasys as $data) {
       $data->campaign_id = $campaign_id;
-      if (!($data->gsm_portable === " " || $data->gsm_portable === null)) {
-        $data->gsm = "55" . $data->gsm_portable;
+      if (!$data->gsm_portable === "" || !$data->gsm_portable === null) {
+        $data->gsm = $data->gsm_portable;
         $data->status = 'PORTABILIDADE';
       } else {
         $data->status = 'PENDENTE';

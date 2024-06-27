@@ -77,7 +77,8 @@ class SaleRepository
       'total_item' => $data->total_item,
       'nome_vendedor' => $data->nome_vendedor,
       'nome_cliente' => $data->nome_cliente,
-      'status' => $data->status
+      'status' => $data->status,
+      'plano_adicional' => $data->plano_adicional
     ];
 
     $this->entity->firstOrCreate($sendDatasys);
