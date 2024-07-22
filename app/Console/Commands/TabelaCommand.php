@@ -43,6 +43,7 @@ class TabelaCommand extends Command
       $tenant_id = $campaign->tenant_id;
 
       $dataService->sendDatasys($tenant_id, $campaign->id, $campaign->sales_modalities);
+      $dataService->cleanDatasys($tenant_id);
     }
   }
 }
