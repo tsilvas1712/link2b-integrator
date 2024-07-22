@@ -209,11 +209,12 @@ class DatasysService
   {
     $datasys = $this->datasysRepository->findDatasys($tenant_id, $modalidade);
     $history = new History();
- 
+
 
     Log::info('Enviando Dados Datasys');
 
     $count = 0;
+
 
     foreach ($datasys as $data) {
       $data->campaign_id = $campaign_id;

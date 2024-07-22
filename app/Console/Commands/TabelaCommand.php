@@ -40,14 +40,9 @@ class TabelaCommand extends Command
       $repositoryDatasys = new DatasysRepository($datasys);
       $dataService = new DatasysService($repositorySale, $repositoryDatasys);
 
-      $datasysToken = $campaign->token_customer;
-      $datasysUrl = $campaign->endpoint_customer;
       $tenant_id = $campaign->tenant_id;
 
-
-      if ($campaign->type == 'API') {
-        $dataService->sendDatasys($tenant_id, $campaign->id, $campaign->sales_modalities);
-      }
+      $dataService->sendDatasys($tenant_id, $campaign->id, $campaign->sales_modalities);
     }
   }
 }
