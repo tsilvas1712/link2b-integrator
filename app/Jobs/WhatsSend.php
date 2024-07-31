@@ -75,6 +75,7 @@ class WhatsSend implements ShouldQueue
     try {
       $request = new Request('POST', $url, $headers, $body);
 
+      sleep(30);
       $res = $client->sendAsync($request)->wait();
       if ($res->getStatusCode()) {
         $this->sale->update(['status' => 'ENVIADO']);
@@ -95,9 +96,9 @@ class WhatsSend implements ShouldQueue
   {
     $gsm = str_replace(['(', ')', '-', ' '], '', $gsm);
     $gsm = str_replace('+', '', $gsm);
-    if(strlen($gsm) > 11){
+    if (strlen($gsm) > 11) {
       return $gsm;
     }
-    return '55'.$gsm;
+    return '55' . $gsm;
   }
 }
